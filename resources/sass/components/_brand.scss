@@ -1,0 +1,30 @@
+.brand-container{
+  margin-bottom: 15px;
+  label{
+    padding: 0;
+  }
+  .quantity{
+    width: 100%;
+    padding: 0 10px;
+    .input-group-btn{
+      width: auto;
+      button{
+            height: 24px;
+      }
+    }
+    input{
+      padding: 6px 12px!important;
+    }
+    label{
+      width: 100%;
+    }
+    .input-group{
+      width: 100px;
+      display: flex;
+      margin: 0 auto;
+      input{
+        text-align: center;
+      }
+    }
+  }
+}

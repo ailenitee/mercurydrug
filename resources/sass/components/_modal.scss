@@ -1,0 +1,46 @@
+.modal-dialog{
+  margin-top: 10%;
+  .modal-body{
+    overflow: auto;
+    max-height: 460px;
+  }
+  h5{
+    font-size: 15px;
+  }
+  h6{
+    font-size: 13px;
+    margin-top: 20px;
+  }
+  p{
+    font-size: 13px;
+  }
+  .btn{
+    font-size: 13px;
+    padding: 5px 10px;
+  }
+  .modal-footer{
+    display: block;
+    .btn-secondary{
+      float: left;
+      &.close{
+        float: right;
+        &:hover{
+          background-color: transparent;
+        }
+      }
+    }
+  }
+  &.modal-themes{
+      margin-top: 6%;
+      .modal-body{
+        min-height: 460px;
+        max-height: 460px;
+      }
+  }
+}
+#themesModal{
+  .modal-dialog{
+    width: 60%;
+    max-width: none;
+  }
+}

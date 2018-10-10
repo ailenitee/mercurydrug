@@ -1,0 +1,136 @@
+.navbar {
+  margin-bottom: 0;
+  height: 85px;
+  border-radius: 0;
+  border-top: 1px solid #dddddd;
+  border-bottom: 1px solid #ddd;
+  .navbar-toggle{
+    float: right;
+    border: none;
+    width: 100%;
+    border: 1px solid #555;
+    span{
+      background: #555;
+    }
+    @media( max-width : 991px ){
+      width: auto;
+    }
+  }
+  .navbar-collapse{
+    display: none;
+    &.show{
+      display: block;
+    }
+  }
+  .navbar-brand {
+    font-size: 21px;
+    color: $headertext;
+    height: 83px;
+    padding: 0;
+    h1{
+      margin: 0;
+      padding: 10px 0;
+    }
+    img{
+      margin: 0 15px;
+      height: 100%;
+      display: block;
+      padding: 5px 0;
+      @media( max-width : 767px ){
+        float: right;
+      }
+    }
+  }
+  .navbar-nav{
+    margin: 0;
+    .nav-item{
+      .nav-link{
+        font-weight: 400;
+        margin: 10px 15px;
+        padding: 10px 5px;
+        color: rgba(0, 0, 0, 0.5);
+        &.active{
+          border-bottom: 2px solid $darkheadertext;
+        }
+      }
+    }
+    &.navbar-right{
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+    }
+    @media( max-width : 991px ){
+      width: 100%;
+    }
+  }
+  &.bg-gray{
+    background-color: $lightnav;
+  }
+  @media( max-width : 991px ){
+    height:auto;
+    border-bottom: 1px solid #ccc;
+  }
+  .navbar-burger{
+
+    @media( max-width : 767px ){
+      width: 100%;
+    }
+    .hamburger{
+      float: left;
+      margin: 30px;
+      cursor: pointer;
+    }
+    .navbar-brand{
+      float: right;
+    }
+  }
+}
+.navbar-top{
+  position: relative;
+  height: auto;
+  display: block;
+  width: 100%;
+  padding: 5px;
+  ul{
+    width: 100%;
+    text-align: right;
+    display: inline-block;
+    margin-bottom: 0;
+    padding: 3px 20px;
+    li{
+      display: inline-block;
+      .nav-link-top{
+        margin: 10px 0;
+        padding: 0 20px;
+        color: rgba(0, 0, 0, 0.5);
+        border:  0;
+        font-size: 13px;
+      }
+      .login{
+        border-right: 1px solid;
+      }
+      h4{
+        color: $darkheadertext!important;
+        margin-bottom: 0;
+      }
+    }
+
+  }
+
+}
+@media( max-width : 991px ){
+  #navbarNavDropdown{
+    z-index: 1;
+    text-align: center;
+    width: 100%;
+    .nav-link{
+      &.btn-border{
+        color: $button;
+      }
+    }
+  }
+}
+.nav>li>a:focus, .nav>li>a:hover {
+  text-decoration: none;
+  background-color: transparent;
+}
