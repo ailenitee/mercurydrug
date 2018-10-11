@@ -10609,6 +10609,10 @@ a:focus {
   background-position: center;
 }
 
+.alert {
+  margin-bottom: 30px;
+}
+
 .navbar {
   margin-bottom: 0;
   height: 85px;
@@ -10807,6 +10811,7 @@ a:focus {
 .send-pills .nav-item h3 {
   margin-top: 15px;
   text-align: center;
+  color: #563a34;
 }
 
 .send-pills .nav-item a {
@@ -10817,11 +10822,11 @@ a:focus {
   width: 58px;
   line-height: 38px;
   height: 58px;
-  border: 1px solid #232323;
+  border: 1px solid #563a34;
 }
 
 .send-pills .nav-item a i {
-  color: #232323;
+  color: #563a34;
 }
 
 .send-pills .nav-item a.active i {
@@ -12031,7 +12036,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .content .send-tab-content {
-  margin-top: 30px;
+  margin: 30px 0;
 }
 
 .content.brands img {

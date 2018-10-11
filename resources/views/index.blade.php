@@ -2,8 +2,6 @@
 @section('content')
 <div class="banner-container"></div>
 <div class="container">
-  <form  class="form_details" action="{{ route('cart') }}" enctype="multipart/form-data" method="post" style="width:100%;margin-top:0;">
-
     <div class="content denums" style="padding-bottom:30px;">
       <div class="row">
         <div class="col-md-12">
@@ -11,7 +9,7 @@
         </div>
       </div>
       <h1 class="text-center">Mercury Drug Gift Cards</h1><br>
-      {{ csrf_field() }}
+
       <input type="hidden" value="{{Auth::user() ? Auth::user()->id : '0'}}" name="user_id">
       <input type="hidden" value="{{$brand_id}}" name="brand_id">
       <div class="row">
@@ -28,13 +26,15 @@
           <?php
           $x = 0;
           ?>
+          <form  class="form_details" action="{{ route('cart') }}" enctype="multipart/form-data" method="post" style="width:100%;margin-top:0;">
+            {{ csrf_field() }}
           @foreach ($denum as $k => $result)
           @foreach ($result as $key => $denum)
           <div class="col-md-4">
             <div class="brand-container">
               <img alt="" class="denum" src="{{$denum->theme}}">
               <br>
-              <input type="hidden" name="" value="{{$loop->count}}" id="counter">
+              <input type="hidden" name="" value="{{$loop->count}}" class="counter">
               <div class="denums-margins">
                 <label class="radio-inline">
                   &#8369; {{$denum->denomination}}
@@ -62,6 +62,7 @@
           </div>
           @endforeach
           @endforeach
+          <input type="hidden" name="" value="{{$count}}" class="getAll">
         </div>
         <div class="col-md-1"></div>
         <div class="col-md-12">
@@ -91,19 +92,19 @@
                 @endif
                 <div class="form-group">
                   <label>Sender Name</label>
-                  <input type="text" class="form-control" value="" name="sender" required>
+                  <input type="text" class="form-control sender" value="" name="sender" novalidate>
                 </div>
                 <div class="form-group">
                   <label>Recipient's Name</label>
-                  <input type="name" class="form-control" name="name" value="">
+                  <input type="name" class="form-control name" name="name" value="">
                 </div>
                 <div class="form-group">
                   <label>Recipient's Address</label>
-                  <input type="text" class="form-control" name="address" value="">
+                  <input type="text" class="form-control " name="address" value="">
                 </div>
                 <div class="form-group">
                   <label>Recipient's Mobile</label>
-                  <input type="number" class="form-control" name="mobile" value="">
+                  <input type="number" class="form-control mobile" name="mobile" value="">
                 </div>
               </div>
               @if($edit == 'edit')
@@ -113,15 +114,15 @@
                   @endif
                   <div class="form-group">
                     <label>Sender Name</label>
-                    <input type="text" class="form-control" value="" name="sender" required>
+                    <input type="text" class="form-control sender" value="" name="" novalidate>
                   </div>
                   <div class="form-group">
                     <label>Recipient's Name</label>
-                    <input type="name" class="form-control" name="name" value="">
+                    <input type="name" class="form-control name" name="" value="">
                   </div>
                   <div class="form-group">
                     <label>Recipient's Mobile</label>
-                    <input type="number" class="form-control" name="mobile" value="">
+                    <input type="number" class="form-control mobile" name="" value="">
                   </div>
                 </div>
               </div>
@@ -129,20 +130,27 @@
           </div>
           <div class="r-details" style="margin-top:0;">
             <div class="col-sm-6">
+              <button type="submit" class="btn-border btn-center" value="save" name='submitbutton'>ADD TO CART</button>
+            </div>
+            <div class="col-sm-6">
+              <button type="submit" class="btn-red btn-center" name='submitbutton' value="save_cart">ADD AND CONFIRM ORDER</button>
+            </div>
+            <!-- <div class="col-sm-6">
               <button type="submit" class="btn-border btn-center disabled" style="background-color: #ddd; border:1px solid #ddd;">ADD TO CART</button>
               <button type="submit" class="btn-border btn-center n_disabled" value="save" name='submitbutton'>ADD TO CART</button>
             </div>
             <div class="col-sm-6">
               <button type="submit" class="btn-red btn-center disabled" style="background-color: #ddd; border:1px solid #ddd;">ADD AND CONFIRM ORDER</button>
               <button type="submit" class="btn-red btn-center n_disabled" name='submitbutton' value="save_cart">ADD AND CONFIRM ORDER</button>
-            </div>
+            </div> -->
+
           </div>
           <br><br>
         </div>
         <div class="col-md-2"></div>
-
+        </form>
       </div>
     </div>
-  </form>
+
 </div>
 @stop

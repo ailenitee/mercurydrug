@@ -29,6 +29,7 @@ class HomeController extends Controller
   public function index()
   {
     $data['edit'] = '';
+
     if (session()->exists('cart')){
       $data3 = session()->get('cart');
       $data2 = session()->get('cart.items');
@@ -55,6 +56,7 @@ class HomeController extends Controller
 
             $data['cart'][$key][$key2]['theme'] = $data['cart'][$key][$key2]['themeImg'];
             $data['cart'][$key][$key2]['denomination'] = $data['cart'][$key][$key2]['denomination'];
+
           }
         }
       }
@@ -69,6 +71,7 @@ class HomeController extends Controller
       $denum = explode(',' ,$value->themes);
     }
     $count = count($denum);
+    $data['count'] = count($denum);
     $data['allThemes'] = $denum;
     foreach ($denum  as $key => $value){
       $intval= (int)$value;
@@ -91,7 +94,8 @@ class HomeController extends Controller
     $input      = $request->except(['_token']);
     // $trans_id   = $this->cart->generateTransctionID(15);
     // $count = count($request->quantityVal);
-
+    // dd($request);
+    $input['id'] = str_random(10);
     foreach ($request->themeID as $key => $value){
       $intval= (int)$value;
       $input['input'][$key]["theme_id"]           = $value;
@@ -102,6 +106,7 @@ class HomeController extends Controller
       $input['input'][$key]['name']               = $request->name;
       $input['input'][$key]['address']            = $request->address;
       $input['input'][$key]['mobile']             = $request->mobile;
+      $input['input'][$key]['id']                 = $input['id'];
       $input['themes'] = DB::table('denomination')
       ->leftJoin('themes', 'themes.denomination_id', '=', 'denomination.id')
       ->where('themes.id',$intval)
@@ -114,15 +119,15 @@ class HomeController extends Controller
       $input['input'][$key2]['quantity'] =  (int)$value;
       $input['input'][$key2]['total'] = $input['input'][$key2]['quantity'] * $input['input'][$key2]['denomination'];
     }
+    // dd($input['input']);
     foreach ($input['input'] as $key => $value){
-
       if($input['input'][$key]['quantity'] != 0){
-        // DO NOT INSERT
         // dd($input['input'][$key]['quantity']);
         $res[] =[
           'user_id'             => (int)$input['input'][$key]['user_id'],
           'theme_id'            => (int)$input['input'][$key]['theme_id'],
           'brand_id'            => (int)$input['input'][$key]['brand_id'],
+          'id'                  => $input['input'][$key]['id'],
           // 'transaction_id'      => $input['input'][$key]['transaction_id'],
           'sender'              => $input['input'][$key]['sender'],
           'name'                => $input['input'][$key]['name'],
@@ -150,19 +155,12 @@ class HomeController extends Controller
 
   public function storeCart($res,$input,$request)
   {
-    if ($input['user_id'] != '0'){
-      $messages   = [
-        'required' => 'The :attribute is required',
-      ];
-      Cart::insert($res);
-    }else{
       //// TODO: insert to cart for guest
       if ($request->session()->exists('cart')) {
         $request->session()->push('cart.items', $res);
       }else{
         $request->session()->put('cart.items', $res);
       }
-    }
     $cart                       = $this->cart->getItems();
     $data['cart']               = $cart;
     if($request->type =="json"){
@@ -219,6 +217,21 @@ class HomeController extends Controller
       return view('confirm');
     }
 
+  }
+  public function deleteCart($id)
+  {
+      $data2 = session()->get('cart.items');
+      $data3 = session()->get('cart');
+      // dd($data2,$data3,$id);
+      foreach ($data2 as $key => $value){
+        // dd($value[$key]['id']);
+        if($value[$key]['id'] == $id){
+          session()->pull('cart.items.'. $key);
+          session()->forget('cart.items.'. $key);
+          session()->save();
+        }
+      }
+    return back()->with('success', 'Removed Item From Cart!');
   }
   public function clearCart(Request $request){
     $user = Auth::user();

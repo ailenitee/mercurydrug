@@ -63,26 +63,5 @@ $(function() {
     }
   });
 
-  // send gift card empty input validation
-  $('.form_details input').keyup(function() {
-    var empty = false;
-    $('.form_details input').each(function() {
-      if ($(this).val().length == 0) {
-        empty = true;
-      }
-    });
-    if (empty == true) {
-      $('.form_details .disabled').css('display', 'block');
-      $('.form_details .disabled').css('opacity', '1');
-      $('.form_details .n_disabled').css('display', 'none');
-      $('.form_details .n_disabled').css('opacity', '0');
-    }else {
-      $('.form_details .n_disabled').css('display', 'block');
-      $('.form_details .n_disabled').css('opacity', '1');
-      $('.form_details .disabled').css('display', 'none');
-      $('.form_details .disabled').css('opacity', '0');
-      $('.alert-email').css('display', 'none');
-      $('.alert-email').css('opacity', '0');
-    }
-  }); 
+  
 });

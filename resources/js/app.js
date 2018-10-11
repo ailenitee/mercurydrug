@@ -107,5 +107,5 @@ $(function() {
     $('.radiobtns').parent().removeClass('active');
     $("input[type=radio][name='amount']:checked").parent().addClass('active');
   }
- 
+  
 });
