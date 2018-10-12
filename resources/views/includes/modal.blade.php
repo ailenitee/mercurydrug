@@ -38,44 +38,21 @@
             </p>
           </div>
           <tbody>
-            @if(!empty($cart))
-            @foreach ($cart as $card)
-            @foreach ($card as $cards)
+            @if(count($cart) > 0)
+            @foreach ($cart as $cards)
             <tr>
+              <td><img src="{{$cards->theme}}" alt=""></td>
+              <td>&#8369; {{$cards->denomination}}</td>
+              <td>{{$cards->quantity}}</td>
+              <td>{{$cards->total}}</td>
               <td>
-                @if(isset($cards['theme']))
-                <img src="{{$cards['theme']}}" alt="">
-                @endif
+                <a href="{{url('/edit-cart',$cards->id)}}"><i class="fas fa-edit"></i></a>
               </td>
               <td>
-                @if(isset($cards['denomination']))
-                {{$cards['denomination']}}
-                @endif
-              </td>
-              <td>
-                @if(isset($cards['quantity']))
-                {{$cards['quantity']}}
-                @endif
-              </td>
-              <td>
-                @if(isset($cards['total']))
-                {{$cards['total']}}
-                @endif
-              </td>
-              <td>
-                @if(isset($cards['id']))
-                <input type="hidden" name="id" value="{{$cards['id']}}">
-                <a href="{{url('/edit-cart',$cards['id'])}}"><i class="fas fa-edit"></i></a>
-                @endif
-              </td>
-              <td>
-                @if(isset($cards['id']))
-                <input type="hidden" name="id" value="{{$cards['id']}}" class="get_id">
+                <input type="hidden" name="id" value="{{$cards->id}}" class="get_id">
                 <div class="custom_link delete_link"><i class="fas fa-trash"></i><div>
-                  @endif
                 </td>
               </tr>
-              @endforeach
               @endforeach
               @else
               <tr>
@@ -92,13 +69,13 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
           @if(Auth::guest())
-            @if(empty($cart))
-            <a href="" class="btn btn-red disabled" style="float: right;">CLEAR CART</a>
-            <a href="" class="btn btn-red disabled" style="float: right;">Confirm &amp; Checkout</a>
-            @else
-            <div class="btn btn-red clear_link" style="float: right; ">CLEAR CART</div>
-            <a href="{{url('/confirm')}}" class="btn btn-red" style="float: right; ">Confirm &amp; Checkout</a>
-            @endif 
+          @if(empty($cart))
+          <a href="" class="btn btn-red disabled" style="float: right;">CLEAR CART</a>
+          <a href="" class="btn btn-red disabled" style="float: right;">Confirm &amp; Checkout</a>
+          @else
+          <div class="btn btn-red clear_link" style="float: right; ">CLEAR CART</div>
+          <a href="{{url('/confirm')}}" class="btn btn-red" style="float: right; ">Confirm &amp; Checkout</a>
+          @endif
           @endif
         </div>
       </div>

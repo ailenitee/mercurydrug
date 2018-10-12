@@ -59,10 +59,14 @@ $(function() {
   $('#pillsEmail').children('a').css('background','#dc0e0f');
   $('#pillsEmail a i').css('color','#fff');
   $('.p-item').css('cursor','pointer');
+
   $('#pillsEmail').on('click', function () {
+    showSMS();
+  });
+  function showSMS(){
     $('#pills-tabContent .tab-pane').removeClass('show active');
     $('#pillsEmailContent').addClass('show active');
-    $(this).children('a').css('background','#dc0e0f');
+    $('#pillsEmail').children('a').css('background','#dc0e0f');
     $('#pillsEmail a i').css('color','#fff');
     $('#pillsDeliver a i').css('color','#563a34');
     $('#pillsDeliver').children('a').css('background','transparent');
@@ -72,11 +76,16 @@ $(function() {
     $('#pillsEmailContent .mobile').attr('name','mobile');
     $('#pillsEmailContent .name').attr('name','name');
     $('.email-content input').val('');
-  });
+    $('#option').val('deliver');
+  }
+
   $('#pillsDeliver').on('click', function () {
+    showDelivery();
+  });
+  function showDelivery(){
     $('#pills-tabContent .tab-pane').removeClass('show active');
     $('#pillsDeliverContent').addClass('show active');
-    $(this).children('a').css('background','#dc0e0f');
+    $('#pillsDeliver').children('a').css('background','#dc0e0f');
     $('#pillsDeliver a i').css('color','#fff');
     $('#pillsEmail a i').css('color','#563a34');
     $('#pillsEmail').children('a').css('background','transparent');
@@ -86,8 +95,13 @@ $(function() {
     $('#pillsDeliverContent .mobile').attr('name','mobile');
     $('#pillsDeliverContent .name').attr('name','name');
     $('.deliver-content input').val('');
-  });
-
+    $('#option').val('sms');
+  }
+  if($('#option').val('')== 'deliver'){
+    showDelivery();
+  }else{
+    showSMS();
+  }
   // var equi = $('.getAll').val(); //get loop count
   // var sum = parseInt(equi) + 1;
   //
