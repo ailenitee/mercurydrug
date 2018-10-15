@@ -1,7 +1,14 @@
 @extends('includes.app')
 @section('content')
+<div class="banner-container"></div>
 <div class="container">
+
   <div class="content confirm">
+    <div class="row">
+      <div class="col-md-12">
+        <a href="{{url('/')}}"><i class="fas fa-backward"></i>&nbsp;Back to Homepage</a>
+      </div>
+    </div>
     <h1 class="text-center egift">Confirm &amp; Checkout</h1>
     <div class="confirm-box">
       <div class="row" style="width: 100%;margin: 0;">
@@ -92,9 +99,9 @@
               </div>
               <div class="col-xs-8">
                 @if($card->address)
-                  <p>Deliver to: <b>{{$card->address}}</b></p>
+                <p>Deliver to: <b>{{$card->address}}</b></p>
                 @else
-                  <p>Send Text Message to: <b>{{$card->mobile}}</b></p>
+                <p>Send Text Message to: <b>{{$card->mobile}}</b></p>
                 @endif
                 <p>From: {{$card->sender}}</p>
                 <p>Amount: {{$card->denomination}}</p>

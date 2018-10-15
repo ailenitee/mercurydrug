@@ -4,6 +4,11 @@
 <div class="container">
   <div class="content denums" style="padding-bottom:30px;">
     <div class="row">
+      @if($edit == 'edit')
+        <div class="col-md-12">
+          <a href="{{url('/')}}"><i class="fas fa-backward"></i>&nbsp;Back to Homepage</a>
+        </div>
+      @endif
       <div class="col-md-12">
         <button class="nav-link btn-red btn-center float-right cart-btn"><i class="fa fa-shopping-cart"></i>&nbsp; Cart</button>
       </div>
@@ -148,7 +153,7 @@
               <button type="submit" class="btn-border btn-center" value="save" name='submitbutton'>ADD TO CART</button>
               @endif
             </div>
-            <div class="col-sm-6"> 
+            <div class="col-sm-6">
               @if($edit == 'edit')
               <button type="submit" class="btn-red btn-center" value="update_cart" name='submitbutton'>ADD AND CONFIRM ORDER</button>
               @else
