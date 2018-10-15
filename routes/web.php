@@ -20,6 +20,8 @@ Route::group(['middleware' => 'web'], function () {
   Route::get('/delete-cart/{id}',['as' => 'delete_cart','uses' => 'CRUDController@deleteCart']);
   Route::get('/edit-cart/{id}', ['as' => 'edit_cart','uses' => 'HomeController@edit']);
   Route::get('/confirm', 'HomeController@confirm');
+  Route::get('/checkout', 'HomeController@checkout');
+  Route::post('/cart/transaction', ['as' => 'cart_transaction', 'uses' => 'CardController@transaction']);
   //post
   Route::post('/cart', ['as' => 'cart', 'uses' => 'CRUDController@store']);
   Route::post('/update-cart', ['as' => 'update_cart','uses' => 'CRUDController@update']);

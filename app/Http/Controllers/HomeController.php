@@ -120,4 +120,11 @@ class HomeController extends Controller
 
   }
 
+  public function checkout()
+  {
+    $data['cart'] = DB::table('cart')
+    // ->where('user_id', $user->id)
+    ->get(); //get all data from db table.cart based on user id
+    return view('checkout',$data);
+  }
 }

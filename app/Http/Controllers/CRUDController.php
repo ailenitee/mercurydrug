@@ -26,6 +26,7 @@ class CRUDController extends Controller
     $input      = $request->except(['_token']);
     // $trans_id   = $this->cart->generateTransctionID(15);
     $input['id'] = str_random(10);
+    $input['user_id'] = str_random(10);
     foreach ($request->themeID as $key => $value){
       $intval= (int)$value;
       $input['input'][$key]["theme_id"]           = $value;
@@ -54,6 +55,7 @@ class CRUDController extends Controller
         $res[] =[
           'theme_id'            => (int)$input['input'][$key]['theme_id'],
           'brand_id'            => 1,
+          'user_id'             => 1,
           'sender'              => $input['input'][$key]['sender'],
           'name'                => $input['input'][$key]['name'],
           'quantity'            => $input['input'][$key]['quantity'],
@@ -101,6 +103,7 @@ class CRUDController extends Controller
     $input      = $request;
     $input['total'] = $request->total;
     $input['brand_id'] = 1;
+    $input['user_id'] = 1;
 
     $messages   = [
       'required' => 'The :attribute is required',
