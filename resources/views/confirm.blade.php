@@ -28,131 +28,84 @@
           <h4 class="text-center">Total</h4>
         </div>
       </div>
-      @if(!empty($cart))
       @foreach ($cart as $card)
-      @foreach ($card as $cards)
       <div class="inner-box">
         <div class="row">
           <div class="border-bottom">
             <div class="hid-xs">
               <div class="col-md-2">
-                @if(isset($cards['theme']))
-                <img src="{{$cards['theme']}}" alt="" class="confirm_img">
-                @endif
+                <img src="{{$card->theme}}" alt="" class="confirm_img">
                 <br>
-                @if(isset($cards['sender']))
-                <p class="text-center">From: {{$cards['sender']}}</p>
-                @endif
+                <p class="text-center">From: {{$card->name}}</p>
               </div>
               <div class="col-md-3">
-
-                <!-- Deliver -->
+                @if($card->address)
                 <p>
-                  @if(isset($cards['address']))
-                    Deliver to:
-                    <br>
-                    @if(isset($cards['name']))
-                    {{$cards['name']}}
-                    @endif
-                    <br>
-                    @if(isset($cards['mobile']))
-                    {{$cards['mobile']}}
-                    @endif
-                    <br>
-                    @if(isset($cards['address']))
-                    {{$cards['address']}}
-                    @endif
-                  @else
-                    <!-- SMS -->
-                     Text Message will be sent to:
-                     <br>
-                     @if(isset($cards['name']))
-                     {{$cards['name']}}
-                     @endif
-                     <br>
-                     @if(isset($cards['mobile']))
-                     {{$cards['mobile']}}
-                     @endif
-                    <!-- end SMS -->
-                  @endif
+                  Deliver to:
+                  <br>
+                  {{$card->name}}
+                  <br>
+                  {{$card->mobile}}
+                  <br>
+                  {{$card->address}}
                 </p>
                 <!-- end Deliver -->
+                <!-- SMS -->
+                @else
+                <p>
+                  Send Text Message to:
+                  <br>
+                  {{$card->name}}
+                  <br>
+                  {{$card->mobile}}
+                </p>
+                <!-- end SMS -->
+                @endif
               </div>
               <div class="col-md-2">
-                @if(isset($cards['denomination']))
-                <div>{{$cards['denomination']}}</div>
-                @endif
+                {{$card->denomination}}
               </div>
               <div class="col-md-1">
-                @if(isset($cards['quantity']))
-                <div>{{$cards['quantity']}}</div>
-                @endif
+                {{$card->quantity}}
               </div>
               <div class="col-md-2">
-                @if(isset($cards['total']))
-                <div class="total-cart">{{$cards['total']}}</div>
-                @endif
+                <div class="total-cart">
+                  {{$card->total}}
+                </div>
               </div>
               <div class="col-md-2">
-                @if(isset($cards['id']))
-                <input type="hidden" name="id" value="{{$cards['id']}}">
-                <a href="{{url('/edit-cart',$cards['id'])}}"><i class="fas fa-edit"></i></a>
-                @endif
-                @if(isset($cards['id']))
-                <!-- <input type="hidden" name="id" value="{{$cards['id']}}">
-                <a href="{{url('/delete-cart',$cards['id'])}}">Delete</a> -->
-                <input type="hidden" name="id" value="{{$cards['id']}}" class="get_id">
+                <input type="hidden" name="id" value="{{$card->id}}">
+                <a href="{{url('/edit-cart',$card->id)}}"><i class="fas fa-edit"></i></a>
+                <input type="hidden" name="id" value="{{$card->id}}" class="get_id">
                 <div class="custom_link delete_link"><i class="fas fa-trash"></i></div>
-                @endif
               </div>
             </div>
             <div class="hid-sm">
               <div class="col-xs-4">
-                @if(isset($cards['theme']))
-                <img src="{{$cards['theme']}}" alt="" class="confirm_img">
-                @endif
+                <img src="{{$card->theme}}" alt="" class="confirm_img">
                 <div class="action_buttons">
-                  @if(isset($cards['id']))
-                  <input type="hidden" name="id" value="{{$cards['id']}}">
-                  <a href="{{url('/edit-cart',$cards['id'])}}">Edit</a>&nbsp;|&nbsp;
-                  @endif
-                  @if(isset($cards['id']))
-                  <input type="hidden" name="id" value="{{$cards['id']}}" class="get_id">
+                  <input type="hidden" name="id" value="{{$card->id}}">
+                  <a href="{{url('/edit-cart',$card->id)}}">Edit</a>&nbsp;
+                  <input type="hidden" name="id" value="{{$card->id}}" class="get_id">
                   <div class="custom_link delete_link">Delete</div>
-                  @endif
                 </div>
               </div>
               <div class="col-xs-8">
-                @if(isset($cards['email']))
-                <p>Send to: {{$cards['email']}}</p>
+                @if($card->address)
+                  <p>Deliver to: <b>{{$card->address}}</b></p>
+                @else
+                  <p>Send Text Message to: <b>{{$card->mobile}}</b></p>
                 @endif
-                @if(isset($cards['name']))
-                <p>From: {{$cards['name']}}</p>
-                @endif
-                @if(isset($cards['message']))
-                <p class="text-overflow">Message: {{$cards['message']}}</p>
-                @endif
-                @if(isset($cards['denomination']))
-                <p>Amount: {{$cards['denomination']}}</p>
-                @endif
-                @if(isset($cards['quantity']))
-                <p>Quantity: {{$cards['quantity']}}</p>
-                @endif
-                @if(isset($cards['total']))
-                <p>Total: {{$cards['total']}}</p>
-                @endif
+                <p>From: {{$card->sender}}</p>
+                <p>Amount: {{$card->denomination}}</p>
+                <p>Quantity: {{$card->quantity}}</p>
+                <p>Total: {{$card->total}}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
       @endforeach
-      @endforeach
-      @else
-      <div class="">
-        cart is empty
-      </div>
-      @endif
     </div>
     <div class="row">
       <div class="col-md-12">

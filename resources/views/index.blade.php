@@ -25,13 +25,17 @@
         <?php
         $x = 0;
         ?>
+        @if($edit == 'edit')
+        <form  class="form_details" action="{{ route('update_cart') }}" enctype="multipart/form-data" method="post" style="width:100%;margin-top:0;">
+        @else
         <form  class="form_details" action="{{ route('cart') }}" enctype="multipart/form-data" method="post" style="width:100%;margin-top:0;">
+        @endif
           {{ csrf_field() }}
-          @foreach ($denum as $k => $result)
-            @foreach ($result as $key => $denum)
-              @if($edit == 'edit')
-                  @include('edit') 
-              @else
+          @if($edit == 'edit')
+            @include('edit')
+          @else
+            @foreach ($denum as $k => $result)
+              @foreach ($result as $key => $denum)
                 <div class="col-md-4">
                   <div class="brand-container">
                     <img alt="" class="denum" src="{{$denum->theme}}">
@@ -62,9 +66,9 @@
                     </div>
                   </div>
                 </div>
-              @endif
+              @endforeach
             @endforeach
-          @endforeach
+          @endif
           <input type="hidden" name="" value="{{$count}}" class="getAll">
         </div>
         <div class="col-md-1"></div>
@@ -139,13 +143,17 @@
           <div class="r-details" style="margin-top:0;">
             <div class="col-sm-6">
               @if($edit == 'edit')
-              <button type="submit" class="btn-border btn-center" value="save" name='submitbutton'>UPDATE CART</button>
+              <button type="submit" class="btn-border btn-center" value="update" name='submitbutton'>UPDATE CART</button>
               @else
               <button type="submit" class="btn-border btn-center" value="save" name='submitbutton'>ADD TO CART</button>
               @endif
             </div>
-            <div class="col-sm-6">
-              <button type="submit" class="btn-red btn-center" name='submitbutton' value="save_cart">ADD AND CONFIRM ORDER</button>
+            <div class="col-sm-6"> 
+              @if($edit == 'edit')
+              <button type="submit" class="btn-red btn-center" value="update_cart" name='submitbutton'>ADD AND CONFIRM ORDER</button>
+              @else
+              <button type="submit" class="btn-red btn-center" value="save_cart" name='submitbutton'>ADD AND CONFIRM ORDER</button>
+              @endif
             </div>
             <!-- <div class="col-sm-6">
             <button type="submit" class="btn-border btn-center disabled" style="background-color: #ddd; border:1px solid #ddd;">ADD TO CART</button>

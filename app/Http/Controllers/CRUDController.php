@@ -95,49 +95,34 @@ class CRUDController extends Controller
 
   public function update(Request $request)
   {
+    // dd($request);
     $data['edit'] = 'edit';
-    $request->total = $request->quantity*$request->amount; //get total amount per item
-    $input      = $request->except(['_token','submitbutton']);
+   //get total amount per item
+    $input      = $request;
     $input['total'] = $request->total;
-    if($request->hasFile('giftcard')){
-      $messages   = [
-        'image|mimes' => 'should be jpeg,png,jpg,gif,svg!',
-      ];
-      $imageName = time().'.'.$request->giftcard->getClientOriginalExtension(); //set a name for the image
-      $request->giftcard->move(public_path('/img/uploads'), $imageName); //move the image to a folder
-      $imageFile = $this->url->to('/').'/img/uploads/'.$imageName; //the full url of the image
-      $input['giftcard'] = $imageFile; //new name/link of the image
+    $input['brand_id'] = 1;
+
+    $messages   = [
+      'required' => 'The :attribute is required',
+    ];
+
+    foreach ($input['quantityVal'] as $key2 => $value){
+      $input['quantity'] =  (int)$value;
+      $input['total'] = (int)$value*(int)$request->denomination;
     }
-    //for logged on user
-    if ($request->user_id != '0'){
-      $messages   = [
-        'required' => 'The :attribute is required',
-      ];
-      DB::table('cart')
-      ->where('id', $request->id)
-      ->where('user_id', $request->user_id)
-      ->update($input);
-    }else{
-      //for guest
-      $data2 = session()->get('cart.items');
-      foreach ($data2 as $key => $value){
-        if($value['id'] == $input['id']){
-          session()->pull('cart.items.'. $key); //get selected cart item
-          session()->forget('cart.items.'. $key); //delete selected cart item
-          session()->save(); //save cart
-        }
-      }
-      if ($request->session()->exists('cart')) {
-        $request->session()->push('cart.items', $input);
-      }else{
-        $request->session()->put('cart.items', $input);
-      }
+    foreach ($input['themeID'] as $key2 => $value){
+      $input['theme_id'] =  (int)$value;
     }
-    $cart                       = $this->cart->getItems();
-    $data['cart']               = $cart;
+    $input      = $request->except(['_token','submitbutton','quantityVal','themeID','option','admin','denomination','admins']);
+    // dd($input,(int)$request->id);
+    DB::table('cart')
+    ->where('id', (int)$request->id)
+    ->update($input);
+
     if($request->type =="json"){
       return $data;
     }
+
     switch($request->submitbutton) {
       case 'update':
       return back()->with('success', 'Updated Cart Item Succesfully!'); //Update Cart
@@ -147,6 +132,7 @@ class CRUDController extends Controller
       break;
     }
   }
+
   public function deleteCart($id)
   {
     //for logged on user
@@ -156,7 +142,7 @@ class CRUDController extends Controller
 
     return back()->with('success', 'Removed Item From Cart!');
   }
-  
+
   public function clearCart(Request $request){
     $user = Auth::user();
     if ($user){
