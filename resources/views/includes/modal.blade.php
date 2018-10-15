@@ -68,15 +68,8 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
-          @if(Auth::guest())
-          @if(empty($cart))
-          <a href="" class="btn btn-red disabled" style="float: right;">CLEAR CART</a>
-          <a href="" class="btn btn-red disabled" style="float: right;">Confirm &amp; Checkout</a>
-          @else
           <div class="btn btn-red clear_link" style="float: right; ">CLEAR CART</div>
-          <a href="{{url('/confirm')}}" class="btn btn-red" style="float: right; ">Confirm &amp; Checkout</a>
-          @endif
-          @endif
+          <a href="{{url('/confirm')}}" class="btn btn-red" style="float: right; ">Confirm &amp; Checkout</a> 
         </div>
       </div>
     </div>

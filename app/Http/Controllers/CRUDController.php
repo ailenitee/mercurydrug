@@ -25,7 +25,7 @@ class CRUDController extends Controller
   {
     $input      = $request->except(['_token']);
     // $trans_id   = $this->cart->generateTransctionID(15);
-    $input['id'] = str_random(10);
+    // $input['id'] = str_random(10);
     $input['user_id'] = str_random(10);
     foreach ($request->themeID as $key => $value){
       $intval= (int)$value;
@@ -35,7 +35,7 @@ class CRUDController extends Controller
       $input['input'][$key]['name']               = $request->name;
       $input['input'][$key]['address']            = $request->address;
       $input['input'][$key]['mobile']             = $request->mobile;
-      $input['input'][$key]['id']                 = $input['id'];
+      // $input['input'][$key]['id']                 = $input['id'];
       $input['input'][$key]['option']                 = $input['option'];
       $input['themes'] = DB::table('denomination')
       ->leftJoin('themes', 'themes.denomination_id', '=', 'denomination.id')
@@ -99,7 +99,7 @@ class CRUDController extends Controller
   {
     // dd($request);
     $data['edit'] = 'edit';
-   //get total amount per item
+    //get total amount per item
     $input      = $request;
     $input['total'] = $request->total;
     $input['brand_id'] = 1;
@@ -147,14 +147,8 @@ class CRUDController extends Controller
   }
 
   public function clearCart(Request $request){
-    $user = Auth::user();
-    if ($user){
-      $data = DB::table('cart')
-      ->where('user_id', $user->id)
-      ->delete();
-    }else{
-      session()->flush('cart');
-    }
+    $data = DB::table('cart')
+    ->delete();
     return back()->with('success', 'Cleared Cart!');
   }
 }

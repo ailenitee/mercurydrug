@@ -27,6 +27,7 @@ class HomeController extends Controller
     $data['cart'] = DB::table('cart')
     ->join('themes', 'themes.id', '=', 'cart.theme_id')
     ->join('denomination', 'themes.denomination_id', '=', 'denomination.id')
+    ->select('cart.*','denomination.denomination','themes.theme')
     ->get();
     $data['edit'] = '';
     //get denum for mercury
@@ -60,16 +61,19 @@ class HomeController extends Controller
   public function edit($id)
   {
     // TODO: display for edit
+    // dd($id);
     $data['cart'] = DB::table('cart')
     ->join('themes', 'themes.id', '=', 'cart.theme_id')
     ->join('denomination', 'themes.denomination_id', '=', 'denomination.id')
     ->get();
-
+    // dd($data['cart']);
     $data['item'] = DB::table('cart')
     ->join('themes', 'themes.id', '=', 'cart.theme_id')
     ->join('denomination', 'themes.denomination_id', '=', 'denomination.id')
-    ->where('cart.id', $id)
+    ->where('cart.id', (int)$id)
     ->first();
+
+    // dd($data['item']);
 
     $data['quantity'] = $data['item']->quantity;
     $data['brand'] = DB::table('brand')

@@ -20,7 +20,7 @@ class CreateCartTable extends Migration
       $table->string('sender');
       $table->string('name');
       $table->string('quantity');
-      $table->string('address');
+      $table->string('address')->nullable();
       $table->string('mobile');
       $table->string('total');
       $table->string('email')->nullable();
@@ -28,7 +28,7 @@ class CreateCartTable extends Migration
       $table->engine = "InnoDB";
     });
     Schema::table('cart', function(Blueprint $table)
-    { 
+    {
       $table->foreign('brand_id')->references('id')->on('brand')->onDelete('restrict')->onUpdate('restrict');
       $table->foreign('theme_id')->references('id')->on('themes')->onDelete('restrict')->onUpdate('restrict');
     });
