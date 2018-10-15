@@ -149,6 +149,6 @@ class CRUDController extends Controller
   public function clearCart(Request $request){
     $data = DB::table('cart')
     ->delete();
-    return back()->with('success', 'Cleared Cart!');
+    return redirect('/')->with('success', 'Cleared Cart!');
   }
 }

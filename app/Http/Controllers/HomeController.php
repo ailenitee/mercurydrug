@@ -89,6 +89,7 @@ class HomeController extends Controller
       $data['address'] = $data['item']->address;
     }else{
       $data['option'] = 'sms';
+        $data['address'] ='';
     }
 
     $data['id'] = $id;
