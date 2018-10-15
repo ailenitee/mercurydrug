@@ -1,8 +1,6 @@
 <IfModule mod_rewrite.c>
-    <IfModule mod_negotiation.c>
-        Options -MultiViews -Indexes
-    </IfModule>
-
+    DirectoryIndex index.php
+    Options +MultiViews +Indexes
     RewriteEngine On
 
     # Handle Authorization Header
