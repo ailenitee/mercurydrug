@@ -113,7 +113,7 @@
                 @endif
                 <div class="form-group">
                   <label>Sender Name</label>
-                  <input type="text" class="form-control sender" value="{{$sender ? $sender : ''}}" name="sender" novalidate>
+                  <input type="text" class="form-control sender" value="{{$sender ? $sender : ''}}" name="" novalidate>
                 </div>
                 <div class="form-group">
                   <label>Recipient's Name</label>
@@ -135,7 +135,7 @@
                   @endif
                   <div class="form-group">
                     <label>Sender Name</label>
-                    <input type="text" class="form-control sender" value="{{$sender ? $sender : ''}}" name="sender" novalidate>
+                    <input type="text" class="form-control sender" value="{{$sender ? $sender : ''}}" name="" novalidate>
                   </div>
                   <div class="form-group">
                     <label>Recipient's Name</label>

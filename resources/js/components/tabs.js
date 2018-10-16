@@ -97,7 +97,7 @@ $(function() {
     $('.deliver-content input').val('');
     $('#option').val('sms');
   }
-  if($('.option').val('')== 'deliver'){
+  if($('.option').val()== 'deliver'){
     showSMS();
   }else{
     showDelivery();

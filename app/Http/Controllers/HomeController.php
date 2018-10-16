@@ -128,8 +128,10 @@ class HomeController extends Controller
   public function checkout()
   {
     $data['cart'] = DB::table('cart')
-    // ->where('user_id', $user->id)
-    ->get(); //get all data from db table.cart based on user id
+    ->join('themes', 'themes.id', '=', 'cart.theme_id')
+    ->join('denomination', 'themes.denomination_id', '=', 'denomination.id')
+    ->select('cart.*','denomination.denomination','themes.theme')
+    ->get();
     return view('checkout',$data);
   }
 }

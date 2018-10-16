@@ -27,6 +27,7 @@ class CRUDController extends Controller
     // $trans_id   = $this->cart->generateTransctionID(15);
     // $input['id'] = str_random(10);
     $input['user_id'] = str_random(10);
+    // dd($input);
     foreach ($request->themeID as $key => $value){
       $intval= (int)$value;
       $input['input'][$key]["theme_id"]           = $value;
