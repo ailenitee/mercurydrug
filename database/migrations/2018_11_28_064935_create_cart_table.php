@@ -32,7 +32,7 @@ class CreateCartTable extends Migration
     Schema::table('cart', function(Blueprint $table)
     {
       // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-      $table->foreign('brand_id')->references('id')->on('brand')->onDelete('restrict')->onUpdate('restrict');
+      $table->foreign('brand_id')->references('id')->on('brands')->onDelete('restrict')->onUpdate('restrict');
       $table->foreign('theme_id')->references('id')->on('themes')->onDelete('restrict')->onUpdate('restrict');
     });
   }

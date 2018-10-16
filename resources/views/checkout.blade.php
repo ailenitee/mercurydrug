@@ -56,7 +56,7 @@
             <input type="text" class="form-control" name="mobile" value="{{Auth::user() ? Auth::user()->mobile : ''}}" required placeholder="Phone Number">
           </div>
         </div>
-        <div class="row" style="margin:30px 0;">
+        <div class="row" style="margin-top:30px;">
           <div class="col-sm-12 col-md-6">
             <a  href="{{url('/card/details')}}"class="btn-border btn-center btn-checkout" style="margin-bottom:15px;">ADD ANOTHER GIFT</a>
           </div>

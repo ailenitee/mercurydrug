@@ -13,7 +13,7 @@ class CreateBrandTable extends Migration
      */
     public function up()
     {
-        Schema::create('brand', function (Blueprint $table) {
+        Schema::create('brands', function (Blueprint $table) {
           // TODO: client_id
             $table->increments('id');
             $table->string('brand');
@@ -33,6 +33,6 @@ class CreateBrandTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('brand');
+        Schema::dropIfExists('brands');
     }
 }

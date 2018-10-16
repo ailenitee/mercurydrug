@@ -13,7 +13,7 @@ class CreateProductTable extends Migration
      */
     public function up()
     {
-        Schema::create('product', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
           $table->unsignedInteger('client_id')->unsigned();
             $table->increments('id');
             $table->string('thumbnail');
@@ -21,9 +21,9 @@ class CreateProductTable extends Migration
             $table->string('description');
             $table->timestamps();
         });
-        Schema::table('product', function(Blueprint $table)
+        Schema::table('products', function(Blueprint $table)
         {
-          $table->foreign('client_id')->references('id')->on('client')->onDelete('restrict')->onUpdate('restrict');
+          $table->foreign('client_id')->references('id')->on('clients')->onDelete('restrict')->onUpdate('restrict');
         });
     }
 
@@ -34,6 +34,6 @@ class CreateProductTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product');
+        Schema::dropIfExists('products');
     }
 }

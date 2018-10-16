@@ -77,7 +77,7 @@
               </div>
               <div class="col-md-2">
                 <div class="total-cart">
-                  {{$card->total}}
+                   {{$card->total}}
                 </div>
               </div>
               <div class="col-md-2">
@@ -116,7 +116,7 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <p class="total_sum_p">Total : <span class="total_sum"></span></p>
+        <p class="total_sum_p">Total : &#8369;<span class="total_sum"></span></p>
       </div>
     </div>
     <div class="row">
