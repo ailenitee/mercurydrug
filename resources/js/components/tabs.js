@@ -97,10 +97,10 @@ $(function() {
     $('.deliver-content input').val('');
     $('#option').val('sms');
   }
-  if($('#option').val('')== 'deliver'){
-    showDelivery();
-  }else{
+  if($('.option').val('')== 'deliver'){
     showSMS();
+  }else{
+    showDelivery();
   }
   // var equi = $('.getAll').val(); //get loop count
   // var sum = parseInt(equi) + 1;

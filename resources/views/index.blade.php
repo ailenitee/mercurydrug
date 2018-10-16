@@ -90,7 +90,7 @@
               <h3>DELIVER</h3>
             </li>
             <li class="nav-item p-item" id="pillsDeliver">
-              <a class="nav-link active" data-toggle="pill" role="tab" aria-selected="true">
+              <a class="nav-link" data-toggle="pill" role="tab" aria-selected="true">
                 <i class="fas fa-at"></i>
               </a>
               <h3>SMS</h3>
@@ -98,9 +98,13 @@
           </ul>
           <div class="tab-content send-tab-content " id="pills-tabContent">
             @if($edit == 'edit')
-            <input type="hidden" name="option" value="{{$option ? $option : ''}}" id="option">
+              @if($address == '')
+              <input type="hidden" name="option" value="sms" class="option">
+              @else
+              <input type="hidden" name="option" value="deliver" class="option">
+              @endif
             @else
-            <input type="hidden" name="option" value="deliver" id="option">
+            <input type="hidden" name="option" value="deliver" class="option">
             @endif
             @if($edit == 'edit')
             <div class="tab-pane show active" id="pillsEmailContent" role="tabpanel" aria-labelledby="pills-home-tab">
@@ -131,7 +135,7 @@
                   @endif
                   <div class="form-group">
                     <label>Sender Name</label>
-                    <input type="text" class="form-control sender" value="" name="{{$sender ? $sender : ''}}" novalidate>
+                    <input type="text" class="form-control sender" value="{{$sender ? $sender : ''}}" name="sender" novalidate>
                   </div>
                   <div class="form-group">
                     <label>Recipient's Name</label>
