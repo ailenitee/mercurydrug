@@ -2,6 +2,11 @@
 @section('content')
 <div class="container">
   <div class="content confirm" style="padding: 30px 0;">
+    <div class="row">
+      <div class="col-md-12">
+        <a href="{{url('/')}}"><i class="fas fa-backward"></i>&nbsp;Back to Homepage</a>
+      </div>
+    </div>
     <h1 class="text-center egift">Checkout &amp; Payment</h1>
     <div class="checkout_bg">
       <form class="" action="{{ route('cart_transaction') }}" method="post">
