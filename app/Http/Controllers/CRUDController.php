@@ -26,6 +26,7 @@ class CRUDController extends Controller
     $input      = $request->except(['_token']);
     $input['user_id'] = str_random(10);
     $input['user_type'] = 'guest';
+    $res = [];
     foreach ($request->themeID as $key => $value){
       $intval= (int)$value;
       $input['input'][$key]["theme_id"]           = $value;
@@ -66,8 +67,8 @@ class CRUDController extends Controller
         ];
       }
     }
-    // dd($res2);
-    if(!$res){
+    // dd($res);
+    if(!$res || $res == []){
       switch($request->submitbutton) {
         case 'save':
         return back()->with('error', 'Please enter a Quantity');
