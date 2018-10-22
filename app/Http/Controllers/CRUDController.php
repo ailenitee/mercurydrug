@@ -67,9 +67,11 @@ class CRUDController extends Controller
           'total'               => $input['input'][$key]['total'],
           'user_type'           => $input['input'][$key]['user_type']
         ];
+      }else{
+        $res = 0;
       }
-    }
-    if(!$res){
+    } 
+    if(!$res || $res === 0){
       switch($request->submitbutton) {
         case 'save':
         return back()->with('error', 'Please enter a Quantity');
