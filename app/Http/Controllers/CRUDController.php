@@ -24,15 +24,12 @@ class CRUDController extends Controller
   public function store(Request $request)
   {
     $input      = $request->except(['_token']);
-    // $trans_id   = $this->cart->generateTransctionID(15);
-    // $input['id'] = str_random(10);
     $input['user_id'] = str_random(10);
     $input['user_type'] = 'guest';
-    // dd($input);
     foreach ($request->themeID as $key => $value){
       $intval= (int)$value;
       $input['input'][$key]["theme_id"]           = $value;
-      $input['input'][$key]['brand_id']           = $request->brand_id;
+      $input['input'][$key]['brand_id']           = 1;
       $input['input'][$key]['sender']             = $request->sender;
       $input['input'][$key]['name']               = $request->name;
       $input['input'][$key]['address']            = $request->address;
@@ -52,8 +49,8 @@ class CRUDController extends Controller
       $input['input'][$key2]['quantity'] =  (int)$value;
       $input['input'][$key2]['total'] = $input['input'][$key2]['quantity'] * $input['input'][$key2]['denomination'];
     }
+    // dd($input);
     foreach ($input['input'] as $key => $value){
-
       if($input['input'][$key]['quantity'] != 0){
         $res[] =[
           'theme_id'            => (int)$input['input'][$key]['theme_id'],
@@ -67,11 +64,10 @@ class CRUDController extends Controller
           'total'               => $input['input'][$key]['total'],
           'user_type'           => $input['input'][$key]['user_type']
         ];
-      }else{
-        $res = 0;
       }
-    } 
-    if(!$res || $res === 0){
+    }
+    // dd($res2);
+    if(!$res){
       switch($request->submitbutton) {
         case 'save':
         return back()->with('error', 'Please enter a Quantity');
