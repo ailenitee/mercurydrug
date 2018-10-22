@@ -26,12 +26,12 @@ class HomeController extends Controller
   {
     $data['cart'] = DB::table('cart')
     ->join('themes', 'themes.id', '=', 'cart.theme_id')
-    ->join('denomination', 'themes.denomination_id', '=', 'denomination.id')
-    ->select('cart.*','denomination.denomination','themes.theme')
+    ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
+    ->select('cart.*','denominations.denomination','themes.theme')
     ->get();
     $data['edit'] = '';
     //get denum for mercury
-    $data['brand'] = DB::table('brand')
+    $data['brand'] = DB::table('brands')
     ->where('id', 1)
     ->get();
     foreach ($data['brand'] as $key => $value){
@@ -43,8 +43,8 @@ class HomeController extends Controller
     $data['allThemes'] = $denum;
     foreach ($denum  as $key => $value){
       $intval= (int)$value;
-      $data['denum'][] = DB::table('denomination')
-      ->leftJoin('themes', 'themes.denomination_id', '=', 'denomination.id')
+      $data['denum'][] = DB::table('denominations')
+      ->leftJoin('themes', 'themes.denomination_id', '=', 'denominations.id')
       ->where('themes.id',$intval)
       ->get();
     }
@@ -64,19 +64,17 @@ class HomeController extends Controller
     // dd($id);
     $data['cart'] = DB::table('cart')
     ->join('themes', 'themes.id', '=', 'cart.theme_id')
-    ->join('denomination', 'themes.denomination_id', '=', 'denomination.id')
+    ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
     ->get();
     // dd($data['cart']);
     $data['item'] = DB::table('cart')
     ->join('themes', 'themes.id', '=', 'cart.theme_id')
-    ->join('denomination', 'themes.denomination_id', '=', 'denomination.id')
+    ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
     ->where('cart.id', (int)$id)
     ->first();
 
-    // dd($data['item']);
-
     $data['quantity'] = $data['item']->quantity;
-    $data['brand'] = DB::table('brand')
+    $data['brand'] = DB::table('brands')
     ->where('id', 1)
     ->get();
 
@@ -102,12 +100,11 @@ class HomeController extends Controller
     $data['allThemes'] = $denum;
     foreach ($denum  as $key => $value){
       $intval= (int)$value;
-      $data['denum'][] = DB::table('denomination')
-      ->leftJoin('themes', 'themes.denomination_id', '=', 'denomination.id')
+      $data['denum'][] = DB::table('denominations')
+      ->leftJoin('themes', 'themes.denomination_id', '=', 'denominations.id')
       ->where('themes.id',$intval)
       ->get();
-    }
-    // dd($data);
+    } 
 
     return view('index',$data);
   }
@@ -116,7 +113,7 @@ class HomeController extends Controller
   {
     $data['cart'] = DB::table('cart')
     ->join('themes', 'themes.id', '=', 'cart.theme_id')
-    ->join('denomination', 'themes.denomination_id', '=', 'denomination.id')
+    ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
     ->get();
     // dd($data['cart']);
     $data['amount'] = "";
@@ -129,8 +126,8 @@ class HomeController extends Controller
   {
     $data['cart'] = DB::table('cart')
     ->join('themes', 'themes.id', '=', 'cart.theme_id')
-    ->join('denomination', 'themes.denomination_id', '=', 'denomination.id')
-    ->select('cart.*','denomination.denomination','themes.theme')
+    ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
+    ->select('cart.*','denominations.denomination','themes.theme')
     ->get();
     return view('checkout',$data);
   }

@@ -85,13 +85,13 @@
           <ul class="nav nav-pills mb-3 send-pills" id="pills-tab" role="tablist">
             <li class="nav-item p-item" id="pillsEmail">
               <a class="nav-link" id="pills-profile-tab" data-toggle="pill" role="tab" aria-selected="false">
-                <i class="far fa-comment"></i>
+                <i class="fas fa-truck"></i>
               </a>
               <h3>DELIVER</h3>
             </li>
             <li class="nav-item p-item" id="pillsDeliver">
               <a class="nav-link" data-toggle="pill" role="tab" aria-selected="true">
-                <i class="fas fa-at"></i>
+                <i class="far fa-comments"></i>
               </a>
               <h3>SMS</h3>
             </li>
@@ -164,15 +164,6 @@
               <button type="submit" class="btn-red btn-center" value="save_cart" name='submitbutton'>ADD AND CONFIRM ORDER</button>
               @endif
             </div>
-            <!-- <div class="col-sm-6">
-            <button type="submit" class="btn-border btn-center disabled" style="background-color: #ddd; border:1px solid #ddd;">ADD TO CART</button>
-            <button type="submit" class="btn-border btn-center n_disabled" value="save" name='submitbutton'>ADD TO CART</button>
-          </div>
-          <div class="col-sm-6">
-          <button type="submit" class="btn-red btn-center disabled" style="background-color: #ddd; border:1px solid #ddd;">ADD AND CONFIRM ORDER</button>
-          <button type="submit" class="btn-red btn-center n_disabled" name='submitbutton' value="save_cart">ADD AND CONFIRM ORDER</button>
-        </div> -->
-
       </div>
       <br><br>
     </div>

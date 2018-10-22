@@ -27,6 +27,7 @@ class CRUDController extends Controller
     // $trans_id   = $this->cart->generateTransctionID(15);
     // $input['id'] = str_random(10);
     $input['user_id'] = str_random(10);
+    $input['user_type'] = 'guest';
     // dd($input);
     foreach ($request->themeID as $key => $value){
       $intval= (int)$value;
@@ -37,9 +38,10 @@ class CRUDController extends Controller
       $input['input'][$key]['address']            = $request->address;
       $input['input'][$key]['mobile']             = $request->mobile;
       // $input['input'][$key]['id']                 = $input['id'];
-      $input['input'][$key]['option']                 = $input['option'];
-      $input['themes'] = DB::table('denomination')
-      ->leftJoin('themes', 'themes.denomination_id', '=', 'denomination.id')
+      $input['input'][$key]['option']             = $input['option'];
+      $input['input'][$key]['user_type']             = $input['user_type'];
+      $input['themes'] = DB::table('denominations')
+      ->leftJoin('themes', 'themes.denomination_id', '=', 'denominations.id')
       ->where('themes.id',$intval)
       ->get();
       foreach ($input['themes'] as $key3 => $value){
@@ -62,7 +64,8 @@ class CRUDController extends Controller
           'quantity'            => $input['input'][$key]['quantity'],
           'address'             => $input['input'][$key]['address'],
           'mobile'              => $input['input'][$key]['mobile'],
-          'total'               => $input['input'][$key]['total']
+          'total'               => $input['input'][$key]['total'],
+          'user_type'           => $input['input'][$key]['user_type']
         ];
       }
     }
