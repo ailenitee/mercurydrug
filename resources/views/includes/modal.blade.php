@@ -69,7 +69,7 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
           <div class="btn btn-red clear_link" style="float: right; ">CLEAR CART</div>
-          <a href="{{url('/confirm')}}" class="btn btn-red" style="float: right; ">Confirm &amp; Checkout</a> 
+          <a href="{{url('/confirm')}}" class="btn btn-red" style="float: right; ">Confirm &amp; Checkout</a>
         </div>
       </div>
     </div>

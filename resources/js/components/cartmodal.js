@@ -11,6 +11,7 @@ $(function() {
     $('.alert-cart-confirmation').css('opacity','1');
   });
   $('.clear_link').on('click', function(){
+    $('.modal-body').scrollTop(0);
     $('.alert-cart-confirmation-clear').css('display','block');
     $('.alert-cart-confirmation-clear').css('opacity','1');
   });
