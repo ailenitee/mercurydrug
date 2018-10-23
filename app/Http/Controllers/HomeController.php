@@ -24,7 +24,7 @@ class HomeController extends Controller
 
   public function index()
   {
-    $data['cart'] = DB::table('cart')
+    $data['cart'] = DB::table('carts')
     ->join('themes', 'themes.id', '=', 'cart.theme_id')
     ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
     ->select('cart.*','denominations.denomination','themes.theme')
@@ -62,12 +62,12 @@ class HomeController extends Controller
   {
     // TODO: display for edit
     // dd($id);
-    $data['cart'] = DB::table('cart')
+    $data['cart'] = DB::table('carts')
     ->join('themes', 'themes.id', '=', 'cart.theme_id')
     ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
     ->get();
     // dd($data['cart']);
-    $data['item'] = DB::table('cart')
+    $data['item'] = DB::table('carts')
     ->join('themes', 'themes.id', '=', 'cart.theme_id')
     ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
     ->where('cart.id', (int)$id)
@@ -104,14 +104,14 @@ class HomeController extends Controller
       ->leftJoin('themes', 'themes.denomination_id', '=', 'denominations.id')
       ->where('themes.id',$intval)
       ->get();
-    } 
+    }
 
     return view('index',$data);
   }
 
   public function confirm()
   {
-    $data['cart'] = DB::table('cart')
+    $data['cart'] = DB::table('carts')
     ->join('themes', 'themes.id', '=', 'cart.theme_id')
     ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
     ->get();
@@ -124,7 +124,7 @@ class HomeController extends Controller
 
   public function checkout()
   {
-    $data['cart'] = DB::table('cart')
+    $data['cart'] = DB::table('carts')
     ->join('themes', 'themes.id', '=', 'cart.theme_id')
     ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
     ->select('cart.*','denominations.denomination','themes.theme')

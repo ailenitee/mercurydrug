@@ -349,7 +349,6 @@ $(function () {
     $('#cartModal').modal('show');
   });
   $('.delete_link').on('click', function () {
-    console.log($(this).siblings('.get_id').val());
     var pass_id = $(this).siblings('.get_id').val();
     $('#pass_id').val(pass_id);
     $('.alert-cart-confirmation').css('display', 'block');

@@ -24,7 +24,7 @@ class CRUDController extends Controller
   public function store(Request $request)
   {
     $input      = $request->except(['_token']);
-    $input['user_id'] = str_random(10);
+    $input['user_id'] = session()->getId();
     $input['user_type'] = 'guest';
     $res = [];
     foreach ($request->themeID as $key => $value){
@@ -56,7 +56,7 @@ class CRUDController extends Controller
         $res[] =[
           'theme_id'            => (int)$input['input'][$key]['theme_id'],
           'brand_id'            => 1,
-          'user_id'             => 1,
+          'user_id'             => $input['user_id'],
           'sender'              => $input['input'][$key]['sender'],
           'name'                => $input['input'][$key]['name'],
           'quantity'            => $input['input'][$key]['quantity'],
@@ -121,7 +121,7 @@ class CRUDController extends Controller
     }
     $input      = $request->except(['_token','submitbutton','quantityVal','themeID','option','admin','denomination','admins']);
     // dd($input,(int)$request->id);
-    DB::table('cart')
+    DB::table('carts')
     ->where('id', (int)$request->id)
     ->update($input);
 
@@ -142,7 +142,7 @@ class CRUDController extends Controller
   public function deleteCart($id)
   {
     //for logged on user
-    $data['cart'] = DB::table('cart')
+    $data['cart'] = DB::table('carts')
     ->where('id', $id)
     ->delete(); //delete data from db table.cart based on item id
 
@@ -150,7 +150,7 @@ class CRUDController extends Controller
   }
 
   public function clearCart(Request $request){
-    $data = DB::table('cart')
+    $data = DB::table('carts')
     ->delete();
     return redirect('/')->with('success', 'Cleared Cart!');
   }
