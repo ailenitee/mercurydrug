@@ -25,9 +25,9 @@ class HomeController extends Controller
   public function index()
   {
     $data['cart'] = DB::table('carts')
-    ->join('themes', 'themes.id', '=', 'cart.theme_id')
+    ->join('themes', 'themes.id', '=', 'carts.theme_id')
     ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
-    ->select('cart.*','denominations.denomination','themes.theme')
+    ->select('carts.*','denominations.denomination','themes.theme')
     ->get();
     $data['edit'] = '';
     //get denum for mercury
@@ -63,14 +63,14 @@ class HomeController extends Controller
     // TODO: display for edit
     // dd($id);
     $data['cart'] = DB::table('carts')
-    ->join('themes', 'themes.id', '=', 'cart.theme_id')
+    ->join('themes', 'themes.id', '=', 'carts.theme_id')
     ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
     ->get();
     // dd($data['cart']);
     $data['item'] = DB::table('carts')
-    ->join('themes', 'themes.id', '=', 'cart.theme_id')
+    ->join('themes', 'themes.id', '=', 'carts.theme_id')
     ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
-    ->where('cart.id', (int)$id)
+    ->where('carts.id', (int)$id)
     ->first();
 
     $data['quantity'] = $data['item']->quantity;
@@ -112,7 +112,7 @@ class HomeController extends Controller
   public function confirm()
   {
     $data['cart'] = DB::table('carts')
-    ->join('themes', 'themes.id', '=', 'cart.theme_id')
+    ->join('themes', 'themes.id', '=', 'carts.theme_id')
     ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
     ->get();
     // dd($data['cart']);
@@ -125,9 +125,9 @@ class HomeController extends Controller
   public function checkout()
   {
     $data['cart'] = DB::table('carts')
-    ->join('themes', 'themes.id', '=', 'cart.theme_id')
+    ->join('themes', 'themes.id', '=', 'carts.theme_id')
     ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
-    ->select('cart.*','denominations.denomination','themes.theme')
+    ->select('carts.*','denominations.denomination','themes.theme')
     ->get();
     return view('checkout',$data);
   }
