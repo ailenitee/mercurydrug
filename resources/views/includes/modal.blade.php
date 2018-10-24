@@ -68,8 +68,13 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
-          <div class="btn btn-red clear_link" style="float: right; ">CLEAR CART</div>
-          <a href="{{url('/confirm')}}" class="btn btn-red" style="float: right; ">Confirm &amp; Checkout</a>
+          @if(empty($cartThemes))
+            <a href="" class="btn btn-red disabled" style="float: right;">CLEAR CART</a>
+            <a href="" class="btn btn-red disabled" style="float: right;">Confirm &amp; Checkout</a>
+          @else
+            <div class="btn btn-red clear_link" style="float: right; ">CLEAR CART</div>
+            <a href="{{url('/confirm')}}" class="btn btn-red" style="float: right; ">Confirm &amp; Checkout</a>
+          @endif
         </div>
       </div>
     </div>

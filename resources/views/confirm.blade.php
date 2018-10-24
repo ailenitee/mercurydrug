@@ -24,6 +24,14 @@
           </div>
         </div>
       </div>
+      @if(empty($cartThemes))
+        <div class="text-center">
+          <br>
+          <h2>You have nothing in your Cart</h2>
+          <a  href="{{url('/')}}"class="btn-border btn-center m-bottom">CONTINUE SHOPPING</a>
+        </div>
+      @else
+      @foreach ($cart as $card)
       <div class="row hids-xs" style="width: 90%;margin: 0 auto;">
         <div class="col-md-offset-5 col-md-2">
           <h4 class="text-center">Price</h4>
@@ -35,7 +43,6 @@
           <h4 class="text-center">Total</h4>
         </div>
       </div>
-      @foreach ($cart as $card)
       <div class="inner-box">
         <div class="row">
           <div class="border-bottom">
@@ -113,6 +120,7 @@
         </div>
       </div>
       @endforeach
+      @endif
     </div>
     <div class="row">
       <div class="col-md-12">
@@ -121,10 +129,19 @@
     </div>
     <div class="row">
       <div class="col-md-6">
-        <a  href="{{url('/')}}"class="btn-border btn-center m-bottom">ADD ANOTHER GIFT</a>
+        @if(empty($cartThemes))
+          <a  href="{{url('/')}}"class="btn-border btn-center m-bottom">ADD A GIFT</a>
+        @else
+          <a  href="{{url('/')}}"class="btn-border btn-center m-bottom">ADD ANOTHER GIFT</a>
+        @endif 
       </div>
       <div class="col-md-6">
+        @if(empty($cartThemes))
+          <a class="btn-red btn-center disabled" href="{{url('/checkout')}}">CONFIRM AND CHECKOUT</a>
+        @else
         <a class="btn-red btn-center" href="{{url('/checkout')}}">CONFIRM AND CHECKOUT</a>
+        @endif
+
       </div>
     </div>
   </div>
