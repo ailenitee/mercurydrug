@@ -32,7 +32,7 @@
         </div>
       @else
       @foreach ($cart as $card)
-      <div class="row hids-xs" style="width: 90%;margin: 0 auto;">
+      <div class="row hids-xs" style="width: 90%;margin: 0 auto; margin-top:20px;">
         <div class="col-md-offset-5 col-md-2">
           <h4 class="text-center">Price</h4>
         </div>
@@ -141,7 +141,6 @@
         @else
         <a class="btn-red btn-center" href="{{url('/checkout')}}">CONFIRM AND CHECKOUT</a>
         @endif
-
       </div>
     </div>
   </div>
