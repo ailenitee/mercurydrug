@@ -24,7 +24,7 @@
           </div>
         </div>
       </div>
-      @if(empty($cartThemes))
+      @if(empty($cart))
         <div class="text-center">
           <br>
           <h2>You have nothing in your Cart</h2>
@@ -129,14 +129,14 @@
     </div>
     <div class="row">
       <div class="col-md-6">
-        @if(empty($cartThemes))
+        @if(empty($cart))
           <a  href="{{url('/')}}"class="btn-border btn-center m-bottom">ADD A GIFT</a>
         @else
           <a  href="{{url('/')}}"class="btn-border btn-center m-bottom">ADD ANOTHER GIFT</a>
-        @endif 
+        @endif
       </div>
       <div class="col-md-6">
-        @if(empty($cartThemes))
+        @if(empty($cart))
           <a class="btn-red btn-center disabled" href="{{url('/checkout')}}">CONFIRM AND CHECKOUT</a>
         @else
         <a class="btn-red btn-center" href="{{url('/checkout')}}">CONFIRM AND CHECKOUT</a>

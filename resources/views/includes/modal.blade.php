@@ -68,7 +68,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
-          @if(empty($cartThemes))
+          @if(count($cart) == 0)
             <a href="" class="btn btn-red disabled" style="float: right;">CLEAR CART</a>
             <a href="" class="btn btn-red disabled" style="float: right;">Confirm &amp; Checkout</a>
           @else
