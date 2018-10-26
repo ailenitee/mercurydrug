@@ -105,11 +105,35 @@ a{
   width: 1.5rem;
   height: 1.5rem;
 }
-.custom-control-label::after { 
+.custom-control-label::after {
   top: 0.25rem;
   left: -1.5rem;
   width: 1.5rem;
   height: 1.5rem;
+}
+.tooltip {
+  font-family: $font-header;
+  font-size: 13px; 
+  line-height: 1.42857143;
+  text-align: left;
+  text-align: start;
+  text-decoration: none;
+  text-shadow: none;
+  text-transform: none;
+  letter-spacing: normal;
+  word-break: normal;
+  word-spacing: normal;
+  word-wrap: normal;
+  white-space: normal;
+  /* ... */
+}
+.tooltip-inner {
+  max-width: 200px;
+  padding: 3px 8px;
+  color: #fff;
+  text-align: center;
+  background-color: #000;
+  border-radius: 4px;
 }
 @import 'components/style';
 @import 'components/nav';

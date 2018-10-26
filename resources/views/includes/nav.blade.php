@@ -1,8 +1,8 @@
 <div class="navbar-top">
   <ul>
     <li style="float:left;">
-      <a class="navbar-brand" href="{{ url('/') }}">
-        <img src="https://www.mercurydrug.com/public/images/mercury-logo.jpg" alt="" style="height:100%;">
+      <a class="navbar-brand" href="{{ url('/') }}"> 
+        <img src="{{URL::asset('/img/logo.jpg')}}" alt="" style="height:100%;">
       </a>
     </li>
     @if(Auth::guest())

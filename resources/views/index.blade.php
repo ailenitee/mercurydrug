@@ -84,16 +84,16 @@
         <div class="col-md-8">
           <ul class="nav nav-pills mb-3 send-pills" id="pills-tab" role="tablist">
             <li class="nav-item p-item" id="pillsEmail">
-              <a class="nav-link" id="pills-profile-tab" data-toggle="pill" role="tab" aria-selected="false"data-toggle="tooltip" data-placement="top" title="Hooray!">
+              <a class="nav-link" id="pills-profile-tab" data-toggle="pill" role="tab" aria-selected="false"data-toggle="tooltip" data-placement="top" title="We can deliver the physical gift card to your preferred address">
                 <i class="fas fa-truck"></i>
               </a>
               <h3>DELIVER</h3>
             </li>
             <li class="nav-item p-item" id="pillsDeliver">
-              <a class="nav-link" data-toggle="pill" role="tab" aria-selected="true"data-toggle="tooltip" data-placement="top" title="Hooray!">
+              <a class="nav-link" data-toggle="pill" role="tab" aria-selected="true" data-toggle="tooltip" data-placement="top" title="Send the gift code to a mobile number. You can present the gift code to the cashier to redeem.">
                 <i class="far fa-comments"></i>
               </a>
-              <h3>Send via SMS</h3>
+              <h3>SEND VIA SMS</h3>
             </li>
           </ul>
           <div class="tab-content send-tab-content " id="pills-tabContent">
@@ -149,7 +149,7 @@
               </div>
             </div>
           </div>
-          <div class="r-details" style="margin-top:0;">
+          <div class="r-details" style="margin-top:40px;">
             <div class="col-xs-6 col-sm-6">
               @if($edit == 'edit')
               <button type="submit" class="btn-border btn-center" value="update" name='submitbutton'>UPDATE CART</button>
@@ -171,6 +171,5 @@
   </form>
 </div>
 </div>
-
 </div>
 @stop
