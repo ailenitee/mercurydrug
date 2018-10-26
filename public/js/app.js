@@ -98,7 +98,7 @@ __webpack_require__(9);
 
 $(function () {
   var referrer = document.referrer;
-
+  $('[data-toggle="tooltip"]').tooltip();
   $('.navbar-nav>li>a').on('click', function () {
     $('.navbar-collapse').collapse('hide');
   });
@@ -184,6 +184,12 @@ $(function () {
     $('.radiobtns').parent().removeClass('active');
     $("input[type=radio][name='amount']:checked").parent().addClass('active');
   }
+
+  $('input').focus(function () {
+    $(this).siblings('div').children('span').css('border-bottom', '1px solid #000');
+  }).blur(function () {
+    $(this).siblings('div').children('span').css('border-bottom', '1px solid #9d9d9d');
+  });
 });
 
 /***/ }),

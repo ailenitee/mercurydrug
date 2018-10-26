@@ -131,4 +131,24 @@ class HomeController extends Controller
     ->get();
     return view('checkout',$data);
   }
+
+  public function login()
+  {
+    $data['cart'] = DB::table('carts')
+    ->join('themes', 'themes.id', '=', 'carts.theme_id')
+    ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
+    ->select('carts.*','denominations.denomination','themes.theme')
+    ->get();
+    return view('login',$data);
+  }
+
+  public function register()
+  {
+    $data['cart'] = DB::table('carts')
+    ->join('themes', 'themes.id', '=', 'carts.theme_id')
+    ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
+    ->select('carts.*','denominations.denomination','themes.theme')
+    ->get();
+    return view('register',$data);
+  }
 }

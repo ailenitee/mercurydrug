@@ -22,7 +22,6 @@ class DatabaseSeeder extends Seeder
         'name'				=> 'superadmin',
         'email'					=> 'superadmin@glyphgames.com',
         'password'				=> bcrypt('1q2w3e4R'),
-        'username'				=> 'superadmin',
         'mobile'					=> '0000',
         'role_id'						=> 1,
         'status'				=> '1'
@@ -31,7 +30,6 @@ class DatabaseSeeder extends Seeder
         'name'				=> 'admin',
         'email'					=> 'admin@glyphgames.com',
         'password'				=> bcrypt('admin'),
-        'username'				=> 'administrator',
         'mobile'					=> '0000',
         'role_id'						=> 1,
         'status'				=> '1'
@@ -42,8 +40,7 @@ class DatabaseSeeder extends Seeder
       User::create([
         'name'          => $key['name'],
         'email'         => $key['email'],
-        'password'      => $key['password'],
-        'username'	    => $key['username'],
+        'password'      => $key['password'], 
         'mobile'		    => $key['mobile'],
         'role_id'			    => $key['role_id'],
         'status'			  => $key['status'],

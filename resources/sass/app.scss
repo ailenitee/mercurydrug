@@ -101,6 +101,16 @@ a{
   align-items: center;
   justify-content: center;
 }
+.custom-control-label::before {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.custom-control-label::after { 
+  top: 0.25rem;
+  left: -1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+}
 @import 'components/style';
 @import 'components/nav';
 @import 'components/navpills';

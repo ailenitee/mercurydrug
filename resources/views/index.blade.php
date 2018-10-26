@@ -84,16 +84,16 @@
         <div class="col-md-8">
           <ul class="nav nav-pills mb-3 send-pills" id="pills-tab" role="tablist">
             <li class="nav-item p-item" id="pillsEmail">
-              <a class="nav-link" id="pills-profile-tab" data-toggle="pill" role="tab" aria-selected="false">
+              <a class="nav-link" id="pills-profile-tab" data-toggle="pill" role="tab" aria-selected="false"data-toggle="tooltip" data-placement="top" title="Hooray!">
                 <i class="fas fa-truck"></i>
               </a>
               <h3>DELIVER</h3>
             </li>
             <li class="nav-item p-item" id="pillsDeliver">
-              <a class="nav-link" data-toggle="pill" role="tab" aria-selected="true">
+              <a class="nav-link" data-toggle="pill" role="tab" aria-selected="true"data-toggle="tooltip" data-placement="top" title="Hooray!">
                 <i class="far fa-comments"></i>
               </a>
-              <h3>SMS</h3>
+              <h3>Send via SMS</h3>
             </li>
           </ul>
           <div class="tab-content send-tab-content " id="pills-tabContent">
@@ -150,14 +150,14 @@
             </div>
           </div>
           <div class="r-details" style="margin-top:0;">
-            <div class="col-sm-6">
+            <div class="col-xs-6 col-sm-6">
               @if($edit == 'edit')
               <button type="submit" class="btn-border btn-center" value="update" name='submitbutton'>UPDATE CART</button>
               @else
               <button type="submit" class="btn-border btn-center" value="save" name='submitbutton'>ADD TO CART</button>
               @endif
             </div>
-            <div class="col-sm-6">
+            <div class="col-xs-6 col-sm-6">
               @if($edit == 'edit')
               <button type="submit" class="btn-red btn-center" value="update_cart" name='submitbutton'>ADD AND CONFIRM ORDER</button>
               @else

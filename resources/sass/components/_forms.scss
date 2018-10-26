@@ -1,3 +1,39 @@
+.loginform_details{
+  padding: 0 35px;
+  input{
+    padding: 20px;
+    font-size: 13px;
+    border: none;
+    border-bottom: 1px solid #9d9d9d;
+    box-shadow: none;
+    &:focus{
+      border-bottom: 1px solid #000;
+      box-shadow: none;
+    }
+  }
+  i{
+    font-size: 13px;
+  }
+  .input-group-text{
+    padding: 0 20px;
+    background: none;
+    border: none;
+    border-bottom: 1px solid #9d9d9d;
+  }
+  .input-group{
+    margin-bottom: 30px!important;
+  }
+  @media( max-width : 767px ){
+    padding: 0 15px;
+  }
+  button{
+    margin-top: 50px;
+    &.close{
+      margin: 0;
+    }
+  }
+}
+
 textarea{
   resize: none;
 }
@@ -64,33 +100,5 @@ input[type=number]::-webkit-outer-spin-button {
 
       }
     }
-  }
-}
-
-.signup_form{
-  input.form-control{
-    border: none;
-    border-bottom: 1px solid rgba(14, 11, 7, 0.7);
-    border-radius: 0;
-    -webkit-box-shadow: none;
-    box-shadow: none!important;
-  }
-}
-
-.form-contact{
-  input.form-control,textarea{
-    border: none;
-    border-bottom: 1px solid rgba(14, 11, 7, 0.7);
-    border-radius: 0;
-    -webkit-box-shadow: none;
-    box-shadow: none !important;
-    background-color: transparent;
-  }
-  button{
-    display: block;
-    float: right;
-    font-size: 14px;
-    margin-top: 20px;
-    padding: 10px 30px;
   }
 }

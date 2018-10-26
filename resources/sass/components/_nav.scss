@@ -99,8 +99,11 @@
     padding: 3px 20px;
     li{
       display: inline-block;
+      &.nav-item{
+        margin-top: 10px;
+      }
       .nav-link-top{
-        margin: 10px 0;
+        margin: 20px 0;
         padding: 0 20px;
         color: rgba(0, 0, 0, 0.5);
         border:  0;
