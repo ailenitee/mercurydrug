@@ -23,20 +23,26 @@ class CRUDController extends Controller
   }
   public function store(Request $request)
   {
+    $user = Auth::user();
     $input      = $request->except(['_token']);
     $input['user_id'] = session()->getId();
-    $input['user_type'] = 'guest';
+    $request->session()->push('user_id', session()->getId());
+    if ($user){
+      $input['user_type'] = 'guest';
+    }else{
+      $input['user_type'] = 'user';
+    }
     $res = [];
     foreach ($request->themeID as $key => $value){
       $intval= (int)$value;
-      $input['input'][$key]["theme_id"]           = $value;
-      $input['input'][$key]['brand_id']           = 1;
-      $input['input'][$key]['sender']             = $request->sender;
-      $input['input'][$key]['name']               = $request->name;
-      $input['input'][$key]['address']            = $request->address;
-      $input['input'][$key]['mobile']             = $request->mobile;
+      $input['input'][$key]["theme_id"]              = $value;
+      $input['input'][$key]['brand_id']              = 1;
+      $input['input'][$key]['sender']                = $request->sender;
+      $input['input'][$key]['name']                  = $request->name;
+      $input['input'][$key]['address']               = $request->address;
+      $input['input'][$key]['mobile']                = $request->mobile;
       // $input['input'][$key]['id']                 = $input['id'];
-      $input['input'][$key]['option']             = $input['option'];
+      $input['input'][$key]['option']                = $input['option'];
       $input['input'][$key]['user_type']             = $input['user_type'];
       $input['themes'] = DB::table('denominations')
       ->leftJoin('themes', 'themes.denomination_id', '=', 'denominations.id')

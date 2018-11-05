@@ -3,6 +3,14 @@
 <div class="login-container content">
   <div class="container">
     <div class="row">
+      <div class=" col-md-12">
+        @if(Session::has('error2'))
+        <div class="alert alert-danger alert-dismissible" role="alert">
+           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+           <i class="fas fa-exclamation-circle"></i> {{ Session::get('error2') }}
+       </div>
+       @endif
+      </div>
       <div class="col-sm-6">
         <img src="{{URL::asset('/img/login/gift-certificate-image.jpg')}}">
         <br><br>
@@ -35,7 +43,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text" id="basic-addon1"><i class="fas fa-unlock-alt"></i></span>
             </div>
-            <input type="text" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1"name="password"  required>
+            <input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1"name="password"  required>
           </div>
           <button type="submit" name="button" class="nav-link btn-border btn-center" >Login</button>
         </form>

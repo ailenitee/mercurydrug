@@ -24,11 +24,34 @@ class HomeController extends Controller
 
   public function index()
   {
-    $data['cart'] = DB::table('carts')
-    ->join('themes', 'themes.id', '=', 'carts.theme_id')
-    ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
-    ->select('carts.*','denominations.denomination','themes.theme')
-    ->get();
+    $user = Auth::user();
+    // dd(last(session()->get('user_id')));
+    if ($user){
+      $data['carts'] = DB::table('carts')
+      ->where('user_id',last(session()->get('user_id')))
+      ->update(array('user_id' =>$user->id));
+
+      $data['type'] = DB::table('carts')
+      ->where('user_id',$user->id)
+      ->update(array('user_type' => 'user'));
+
+      $data['cart'] = DB::table('carts')
+      ->join('themes', 'themes.id', '=', 'carts.theme_id')
+      ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
+      ->select('carts.*','denominations.denomination','themes.theme')
+      ->where('user_id',$user->id)
+      ->get();
+      // dd($data);
+    }else{
+      $data['cart'] = DB::table('carts')
+      ->join('themes', 'themes.id', '=', 'carts.theme_id')
+      ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
+      ->select('carts.*','denominations.denomination','themes.theme')
+      ->where('user_id',last(session()->get('user_id')))
+      ->get();
+    }
+
+
     $data['edit'] = '';
     //get denum for mercury
     $data['brand'] = DB::table('brands')
@@ -53,6 +76,8 @@ class HomeController extends Controller
     $data['total'] = "";
     $data['address'] = "";
     $data['name'] = "";
+    // dd(session()->getId());
+
     // dd($data);
     return view('index',$data);
   }
@@ -115,11 +140,13 @@ class HomeController extends Controller
     ->join('themes', 'themes.id', '=', 'carts.theme_id')
     ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
     ->get();
-    // dd($data['cart']);
     $data['amount'] = "";
-    // dd(count($key));
-    return view('confirm',$data);
-
+    $user = Auth::user();
+    if ($user){
+      return view('confirm',$data);
+    }else{
+      return redirect()->route('login')->with('error2', 'User is required to login before checking out.');
+    }
   }
 
   public function checkout()

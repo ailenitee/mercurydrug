@@ -21,9 +21,9 @@ Route::group(['middleware' => 'web'], function () {
   Route::get('/edit-cart/{id}', ['as' => 'edit_cart','uses' => 'HomeController@edit']);
   Route::get('/confirm', 'HomeController@confirm');
   Route::get('/checkout', 'HomeController@checkout');
-  Route::get('/login', 'HomeController@login');
+  Route::get('/login', ['as' => 'login','uses' => 'HomeController@login']);
   Route::get('/register', 'HomeController@register');
-  Route::post('/registration', ['as' => 'user_register', 'uses' => 'Auth\RegisterController@register']); 
+  Route::post('/registration', ['as' => 'user_register', 'uses' => 'Auth\RegisterController@register']);
   Route::post('/login-user',['as' => 'user_login', 'uses' => 'Auth\LoginController@loginProcess']);
   Route::get('/logout', ['uses' => 'Auth\LoginController@logout']);
   //post
