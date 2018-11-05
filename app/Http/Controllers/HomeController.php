@@ -43,12 +43,21 @@ class HomeController extends Controller
       ->get();
       // dd($data);
     }else{
-      $data['cart'] = DB::table('carts')
-      ->join('themes', 'themes.id', '=', 'carts.theme_id')
-      ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
-      ->select('carts.*','denominations.denomination','themes.theme')
-      ->where('user_id',last(session()->get('user_id')))
-      ->get();
+      if(session()->get('user_id')){
+        $data['cart'] = DB::table('carts')
+        ->join('themes', 'themes.id', '=', 'carts.theme_id')
+        ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
+        ->select('carts.*','denominations.denomination','themes.theme')
+        ->where('user_id',last(session()->get('user_id')))
+        ->get();
+      }else{
+        $data['cart'] = DB::table('carts')
+        ->join('themes', 'themes.id', '=', 'carts.theme_id')
+        ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
+        ->select('carts.*','denominations.denomination','themes.theme')
+        ->where('user_id',0)
+        ->get();
+      }
     }
 
 
