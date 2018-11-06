@@ -68,12 +68,12 @@ class LoginController extends Controller
     ->where('email', $request->email)
     ->first(); //get all data from db table.cart based on user id
     if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
-      // if($data['user']->roles == 0){
-      //   return redirect('/cms/dashboard');
-      // }else{
-      //   return redirect('/brand');
-      // }
-      return redirect('/');
+      if($data['user']->status == 0){
+        Auth::logout();
+        return redirect('/login')->with('error', 'Please verify your account that was sent to your email');
+      }else{
+        return redirect('/');
+      }
     }else{
       return redirect('/login')->with('error', 'Invalid Email or Password');
     }

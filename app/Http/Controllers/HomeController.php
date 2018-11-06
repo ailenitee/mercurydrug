@@ -59,8 +59,6 @@ class HomeController extends Controller
         ->get();
       }
     }
-
-
     $data['edit'] = '';
     //get denum for mercury
     $data['brand'] = DB::table('brands')
@@ -85,8 +83,7 @@ class HomeController extends Controller
     $data['total'] = "";
     $data['address'] = "";
     $data['name'] = "";
-    // dd(session()->getId());
-
+    // dd(session()->getId()); 
     // dd($data);
     return view('index',$data);
   }
