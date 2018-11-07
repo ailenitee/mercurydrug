@@ -97,16 +97,14 @@ class RegisterController extends Controller
       return redirect('/login')->with('success', 'Registered Succesfully! Please check your registered email for email verification');
     }
     catch(\Exception $e){
-      dd($e);
-      if($e->errorInfo[2]){
+      if($e){
         return back()->with('error', 'The email address you have entered is already registered.');
-      }
-
+      } 
     }
   }
 
   public function verify($user_id)
-  { 
+  {
     $user = User::where('id',$user_id)->first();
     $user->status = 1;
     if($user->save()){

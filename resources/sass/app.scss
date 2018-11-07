@@ -113,7 +113,7 @@ a{
 }
 .tooltip {
   font-family: $font-header;
-  font-size: 13px; 
+  font-size: 13px;
   line-height: 1.42857143;
   text-align: left;
   text-align: start;
@@ -149,4 +149,5 @@ a{
 @import 'components/banner';
 @import 'components/content';
 @import 'components/login';
+@import 'components/shop';
 @import 'components/footer';

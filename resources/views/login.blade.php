@@ -11,12 +11,12 @@
        </div>
        @endif
       </div>
-      <div class="col-sm-6">
+      <div class="col-xs-12 col-md-6">
         <img src="{{URL::asset('/img/login/gift-certificate-image.jpg')}}">
         <br><br>
         <h4 class="text-center"><u><a href="{{url('/register')}}">Create an Account</a></u></h4>
       </div>
-      <div class="col-sm-6">
+      <div class="col-xs-12 col-md-6">
         <h1 class="text-center">Sign In</h1>
         <br>
         <form class="loginform_details" action="{{ route('user_login') }}" method="post">

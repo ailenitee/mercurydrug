@@ -56,7 +56,7 @@ class CRUDController extends Controller
       $input['input'][$key2]['quantity'] =  (int)$value;
       $input['input'][$key2]['total'] = $input['input'][$key2]['quantity'] * $input['input'][$key2]['denomination'];
     }
-    // dd($input);
+    // dd($request);
     foreach ($input['input'] as $key => $value){
       if($input['input'][$key]['quantity'] != 0){
         $res[] =[

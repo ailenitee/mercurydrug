@@ -3,7 +3,7 @@
 <div class="login-container content" style="height:auto;">
   <div class="container">
     <div class="row">
-      <div class="col-sm-offset-2 col-sm-8">
+      <div class="col-md-offset-2 col-md-8">
         <h1 class="text-center">Sign Up</h1>
         <br>
         <h4 class="text-center"><u><a href="{{url('/login')}}">I am already a member</a></u></h4>
