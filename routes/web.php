@@ -29,7 +29,7 @@ Route::group(['middleware' => 'web'], function () {
   Route::post('/registration', ['as' => 'user_register', 'uses' => 'Auth\RegisterController@register']);
   Route::get('/verify/{id}', ['as' => 'verify', 'uses' => 'Auth\RegisterController@verify']);
   Route::post('/login-user',['as' => 'user_login', 'uses' => 'Auth\LoginController@loginProcess']);
-  Route::post('/cart/transaction', ['as' => 'cart_transaction', 'uses' => 'CardController@transaction']);
+  Route::post('/cart/transaction', ['as' => 'cart_transaction', 'uses' => 'CRUDController@transaction']);
   Route::post('/cart', ['as' => 'cart', 'uses' => 'CRUDController@store']);
   Route::post('/update-cart', ['as' => 'update_cart','uses' => 'CRUDController@update']);
 });

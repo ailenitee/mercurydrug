@@ -160,4 +160,53 @@ class CRUDController extends Controller
     ->delete();
     return redirect('/')->with('success', 'Cleared Cart!');
   }
+
+  public function transaction(Request $request)
+  {
+    $user = Auth::user();
+    $data['cart'] = DB::table('carts')
+    ->join('themes', 'themes.id', '=', 'carts.theme_id')
+    ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
+    ->select('carts.*','denominations.denomination','themes.theme')
+    ->where('user_id',$user->id)
+    ->get();
+
+    // dd($request,$data);
+    $data1 = [
+      "organization_id"=> 7355,
+      "recipient_type"=> "mobile_number",
+      "mobile_numbers"=> ["639985970460"],
+      "message"=> "Sample message to you.",
+      "sender_id"=> "engageSPARK",
+    ];
+
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => "https://start.engagespark.com/api/v1/messages/sms",
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => "",
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 30000,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => "POST",
+      CURLOPT_POSTFIELDS => json_encode($data1),
+      CURLOPT_HTTPHEADER => array(
+        // Set here required headers
+        "accept: */*",
+        "accept-language: en-US,en;q=0.8",
+        "content-type: application/json",
+        "Authorization: Token 4731371c9df6da26988688315391fcc49a214a60"
+      ),
+    ));
+    $response = curl_exec($curl);
+    $res = json_decode($response);
+    $err = curl_error($curl);
+    curl_close($curl);
+    if ($err) {
+      echo "cURL Error #:" . $err;
+    } else {
+      return redirect('/');
+    }
+
+  }
 }

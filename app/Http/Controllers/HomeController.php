@@ -27,9 +27,11 @@ class HomeController extends Controller
     $user = Auth::user();
     // dd(last(session()->get('user_id')));
     if ($user){
-      $data['carts'] = DB::table('carts')
-      ->where('user_id',last(session()->get('user_id')))
-      ->update(array('user_id' =>$user->id));
+      if(session()->get('user_id')){
+        $data['carts'] = DB::table('carts')
+        ->where('user_id',last(session()->get('user_id')))
+        ->update(array('user_id' =>$user->id));
+      } 
 
       $data['type'] = DB::table('carts')
       ->where('user_id',$user->id)
@@ -83,7 +85,7 @@ class HomeController extends Controller
     $data['total'] = "";
     $data['address'] = "";
     $data['name'] = "";
-    // dd(session()->getId()); 
+    // dd(session()->getId());
     // dd($data);
     return view('index',$data);
   }
