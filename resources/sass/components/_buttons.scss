@@ -83,6 +83,18 @@
     border:1px solid #ddd;
   }
 }
+.disable-btn{
+  cursor: not-allowed;
+  background-color: #ddd!important;
+  border: 1px solid #ddd!important;
+  color:#fff!important;
+  &:hover,&:focus{
+    cursor: not-allowed;
+    background-color: #ddd!important;
+    border: 1px solid #ddd!important;
+    color:#fff!important;
+  }
+}
 .n_disabled{
   display: none;
   opacity: 0;

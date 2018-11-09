@@ -14,7 +14,7 @@
       <div class="col-xs-12 col-md-6">
         <img src="{{URL::asset('/img/login/gift-certificate-image.jpg')}}">
         <br><br>
-        <h4 class="text-center"><u><a href="{{url('/register')}}">Create an Account</a></u></h4>
+        <h4 class="text-center" style="margin-bottom:25px;"><u><a href="{{url('/register')}}">Create an Account</a></u></h4>
       </div>
       <div class="col-xs-12 col-md-6">
         <h1 class="text-center">Sign In</h1>
