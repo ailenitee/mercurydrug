@@ -53,7 +53,7 @@
             <input type="text" class="form-control" name="city" required placeholder="City">
           </div>
           <div class="form-group">
-            <input type="text" class="form-control" name="mobile" value="{{Auth::user() ? Auth::user()->mobile : ''}}" required placeholder="Phone Number">
+            <input type="text" class="form-control mobile_number_format" name="mobile" value="{{Auth::user() ? Auth::user()->mobile : ''}}" required placeholder="Phone Number">
           </div>
         </div>
         <div class="row" style="margin-top:30px;">

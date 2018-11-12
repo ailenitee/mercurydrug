@@ -23,7 +23,8 @@ class CreateTransactionTable extends Migration
             $table->string('state');
             $table->string('city');
             $table->string('reference_num');
-            $table->string('status'); 
+            $table->string('mobile'); 
+            $table->string('status');
             $table->timestamps();
             $table->engine = "InnoDB";
         });

@@ -32,7 +32,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text"><i class="fas fa-mobile"></i></span>
             </div>
-            <input type="number" class="form-control" placeholder="Mobile Number" aria-label="Mobile Number" aria-describedby="basic-addon1"name="mnumber" required>
+            <input type="text" class="form-control mobile_number_format" placeholder="Mobile Number" aria-label="Mobile Number" aria-describedby="basic-addon1"name="mnumber" required>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">

@@ -12,6 +12,7 @@ require('./components/tabs.js');
 require('./components/nav.js');
 require('./components/themes.js');
 require('./components/quantity.js');
+require('./components/mobile.js');
 
 /**
 * Next, we will create a fresh Vue application instance and attach it to

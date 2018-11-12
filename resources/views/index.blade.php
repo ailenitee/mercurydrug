@@ -125,7 +125,7 @@
                   </div>
                   <div class="form-group">
                     <label>Recipient's Mobile</label>
-                    <input type="number" class="form-control mobile" name="mobile" value="{{$mobile ? $mobile : ''}}">
+                    <input type="text" class="form-control mobile mobile_number_format" name="mobile" value="{{$mobile ? $mobile : ''}}">
                   </div>
                 </div>
                 @if($edit == 'edit')
@@ -143,7 +143,7 @@
                     </div>
                     <div class="form-group">
                       <label>Recipient's Mobile</label>
-                      <input type="number" class="form-control mobile" name="" value="{{$mobile ? $mobile : ''}}">
+                      <input type="text" class="form-control mobile mobile_number_format" name="" value="{{$mobile ? $mobile : ''}}">
                     </div>
                   </div>
                 </div>
