@@ -22,7 +22,7 @@
           <img alt="mecurydrug logo "src="https://www.mercurydrug.com/public/images/md-main-logo.png" alt="" style="margin:0 auto; display: block;width: 250px;height:auto;">
           <p style="margin: 30px 0; font-family: 'Josefin Sans', sans-serif;">
             Hi {{$name}}! <br><br>
-            Simply verify your email address by clicking the button below and you can now purchase gift cards from mercury drug for your friends and family.
+            Thank you for registering in Mercury Drug Online! Please click on the link below to verify your account.
           </p>
           <p style="margin: 30px 0;text-align:center;">
             <a href="{{url('/verify/'.$user_id)}}" target="_blank" style="font-size: 18px; font-family: 'Josefin Sans', sans-serif; color: #ffffff; text-decoration: none; border-radius: 8px; -webkit-border-radius: 8px; background-color: #f0002d; border: 20px solid #f0002d; width: 50%; margin:30px auto;display:block;">

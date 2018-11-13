@@ -13,6 +13,7 @@ use App\Cart\CartItem;
 use App\Cart\EasyCart;
 use App\Cart;
 use App\Transaction;
+use Carbon\Carbon;
 class CRUDController extends Controller
 {
   protected $url;
@@ -26,12 +27,13 @@ class CRUDController extends Controller
   {
     $user = Auth::user();
     $input      = $request->except(['_token']);
-    $input['user_id'] = session()->getId();
     $request->session()->push('user_id', session()->getId());
     if ($user){
-      $input['user_type'] = 'guest';
-    }else{
       $input['user_type'] = 'user';
+      $input['user_id'] = $user->id;
+    }else{
+      $input['user_type'] = 'guest';
+      $input['user_id'] = session()->getId();
     }
     $res = [];
     foreach ($request->themeID as $key => $value){
@@ -165,20 +167,23 @@ class CRUDController extends Controller
   public function transaction(Request $request)
   {
     $user = Auth::user();
-    $input      = $request->except(['_token','confirm','button']);
+    $input      = $request->except(['_token','confirm','button','mobile']);
     $data['cart'] = DB::table('carts')
     ->join('themes', 'themes.id', '=', 'carts.theme_id')
     ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
     ->select('carts.*','denominations.denomination','themes.theme')
     ->where('user_id',$user->id)
     ->get();
-    $input['reference_num'] = str_random(25);
+    $mytime = Carbon::now()->format('Y-m-d H:i:s');
+    $ymd = str_replace('-', '',$mytime);
+    $random = preg_replace('/[^A-Za-z0-9\-]/', '', $ymd);
+    $input['reference_num'] = (int)$random;
     $input['user_id'] = $user->id;
-    // dd($input);
     foreach ($data['cart'] as $key => $value){
       if(!$value->address){
         $string = str_replace('-', '', $value->mobile);
         $mobile = preg_replace('/[^A-Za-z0-9\-]/', '', $string);
+        $input['mobile'] = $mobile;
         $data1 = [
           "organization_id"=> 7355,
           "recipient_type"=> "mobile_number",
@@ -197,7 +202,6 @@ class CRUDController extends Controller
           CURLOPT_CUSTOMREQUEST => "POST",
           CURLOPT_POSTFIELDS => json_encode($data1),
           CURLOPT_HTTPHEADER => array(
-            // Set here required headers
             "accept: */*",
             "accept-language: en-US,en;q=0.8",
             "content-type: application/json",
@@ -212,13 +216,9 @@ class CRUDController extends Controller
 
       }
     }
-    // TODO: insert to cart reference number same as transaction
-    // if ($err) {
-    //   echo "cURL Error #:" . $err;
-    // } else {
-    //
-    // }
     Transaction::insert($input);
+    // TODO: only update latest transaction
+    Cart::where('user_id', $user->id)->update(array('transaction_id' => $input['reference_num']));
     return redirect('/')->with('success', 'Payment Successful!');
   }
 }

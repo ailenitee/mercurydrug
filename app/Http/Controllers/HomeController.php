@@ -31,7 +31,7 @@ class HomeController extends Controller
         $data['carts'] = DB::table('carts')
         ->where('user_id',last(session()->get('user_id')))
         ->update(array('user_id' =>$user->id));
-      } 
+      }
 
       $data['type'] = DB::table('carts')
       ->where('user_id',$user->id)
@@ -42,6 +42,7 @@ class HomeController extends Controller
       ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
       ->select('carts.*','denominations.denomination','themes.theme')
       ->where('user_id',$user->id)
+      ->whereNull('transaction_id')
       ->get();
       // dd($data);
     }else{
@@ -51,6 +52,7 @@ class HomeController extends Controller
         ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
         ->select('carts.*','denominations.denomination','themes.theme')
         ->where('user_id',last(session()->get('user_id')))
+        ->whereNull('transaction_id')
         ->get();
       }else{
         $data['cart'] = DB::table('carts')
@@ -58,6 +60,7 @@ class HomeController extends Controller
         ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
         ->select('carts.*','denominations.denomination','themes.theme')
         ->where('user_id',0)
+        ->whereNull('transaction_id')
         ->get();
       }
     }
@@ -144,9 +147,12 @@ class HomeController extends Controller
 
   public function confirm()
   {
+    $user = Auth::user();
     $data['cart'] = DB::table('carts')
     ->join('themes', 'themes.id', '=', 'carts.theme_id')
     ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
+    ->where('user_id',$user->id)
+    ->whereNull('transaction_id')
     ->get();
     $data['amount'] = "";
     $user = Auth::user();
@@ -159,30 +165,43 @@ class HomeController extends Controller
 
   public function checkout()
   {
+    $user = Auth::user();
     $data['cart'] = DB::table('carts')
     ->join('themes', 'themes.id', '=', 'carts.theme_id')
     ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
     ->select('carts.*','denominations.denomination','themes.theme')
+    ->where('user_id',$user->id)
+    ->whereNull('transaction_id')
     ->get();
-    return view('checkout',$data);
+    if ($user){
+      return view('checkout',$data);
+    }else{
+      return redirect()->route('login')->with('error2', 'User is required to login before checking out.');
+    }
   }
 
   public function login()
   {
+    $user = Auth::user();
     $data['cart'] = DB::table('carts')
     ->join('themes', 'themes.id', '=', 'carts.theme_id')
     ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
     ->select('carts.*','denominations.denomination','themes.theme')
+    ->where('user_id',$user->id)
+    ->whereNull('transaction_id')
     ->get();
     return view('login',$data);
   }
 
   public function register()
   {
+    $user = Auth::user();
     $data['cart'] = DB::table('carts')
     ->join('themes', 'themes.id', '=', 'carts.theme_id')
     ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
     ->select('carts.*','denominations.denomination','themes.theme')
+    ->where('user_id',$user->id)
+    ->whereNull('transaction_id')
     ->get();
     return view('register',$data);
   }

@@ -40,7 +40,7 @@
           <tbody>
             @if(count($cart) > 0)
             @foreach ($cart as $cards)
-            <tr>
+            <tr> 
               <td><img src="{{$cards->theme}}" alt=""></td>
               <td>&#8369; {{$cards->denomination}}</td>
               <td>{{$cards->quantity}}</td>
