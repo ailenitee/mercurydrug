@@ -82,9 +82,11 @@ class RegisterController extends Controller
   public function register(Request $request)
   {
     $user= new \App\User;
+    $string = str_replace('-', '', $request->get('mnumber'));
+    $mobile = preg_replace('/[^A-Za-z0-9\-]/', '', $string);
     $user->name=$request->get('name');
     $user->email=$request->get('email');
-    $user->mobile=$request->get('mnumber');
+    $user->mobile=$mobile;
     $user->password=Hash::make($request->get('password'));
     $user->role_id=2;
     $user->status=0;
@@ -99,7 +101,7 @@ class RegisterController extends Controller
     catch(\Exception $e){
       if($e){
         return back()->with('error', 'The email address you have entered is already registered.');
-      } 
+      }
     }
   }
 

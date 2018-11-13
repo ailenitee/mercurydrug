@@ -123,7 +123,7 @@ class HomeController extends Controller
       $data['address'] = $data['item']->address;
     }else{
       $data['option'] = 'sms';
-        $data['address'] ='';
+      $data['address'] ='';
     }
 
     $data['id'] = $id;
@@ -188,17 +188,25 @@ class HomeController extends Controller
     ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
     ->select('carts.*','denominations.denomination','themes.theme')
     ->get();
-    return view('login',$data);
+    if ($user){
+      return view('index',$data);
+    }else{
+      return view('login',$data);
+    }
   }
 
   public function register()
   {
-    $user = Auth::user();
+    $user = Auth::user(); 
     $data['cart'] = DB::table('carts')
     ->join('themes', 'themes.id', '=', 'carts.theme_id')
     ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
     ->select('carts.*','denominations.denomination','themes.theme')
     ->get();
-    return view('register',$data);
+    if ($user){
+      return view('index',$data);
+    }else{
+      return view('register',$data);
+    }
   }
 }

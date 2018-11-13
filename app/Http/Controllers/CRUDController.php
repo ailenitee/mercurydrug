@@ -43,7 +43,7 @@ class CRUDController extends Controller
       $input['input'][$key]['sender']                = $request->sender;
       $input['input'][$key]['name']                  = $request->name;
       $input['input'][$key]['address']               = $request->address;
-      $input['input'][$key]['mobile']                = $request->mobile; 
+      $input['input'][$key]['mobile']                = $request->mobile;
       $input['input'][$key]['option']                = $input['option'];
       $input['input'][$key]['user_type']             = $input['user_type'];
       $input['themes'] = DB::table('denominations')
@@ -212,7 +212,9 @@ class CRUDController extends Controller
         $err = curl_error($curl);
         curl_close($curl);
       }else{
-
+        $string = str_replace('-', '', $value->mobile);
+        $mobile = preg_replace('/[^A-Za-z0-9\-]/', '', $string);
+        $input['mobile'] = $mobile;
       }
     }
     Transaction::insert($input);
