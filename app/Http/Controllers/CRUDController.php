@@ -43,8 +43,7 @@ class CRUDController extends Controller
       $input['input'][$key]['sender']                = $request->sender;
       $input['input'][$key]['name']                  = $request->name;
       $input['input'][$key]['address']               = $request->address;
-      $input['input'][$key]['mobile']                = $request->mobile;
-      // $input['input'][$key]['id']                 = $input['id'];
+      $input['input'][$key]['mobile']                = $request->mobile; 
       $input['input'][$key]['option']                = $input['option'];
       $input['input'][$key]['user_type']             = $input['user_type'];
       $input['themes'] = DB::table('denominations')

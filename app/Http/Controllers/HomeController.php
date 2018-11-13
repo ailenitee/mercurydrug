@@ -187,8 +187,6 @@ class HomeController extends Controller
     ->join('themes', 'themes.id', '=', 'carts.theme_id')
     ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
     ->select('carts.*','denominations.denomination','themes.theme')
-    ->where('user_id',$user->id)
-    ->whereNull('transaction_id')
     ->get();
     return view('login',$data);
   }
@@ -200,8 +198,6 @@ class HomeController extends Controller
     ->join('themes', 'themes.id', '=', 'carts.theme_id')
     ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
     ->select('carts.*','denominations.denomination','themes.theme')
-    ->where('user_id',$user->id)
-    ->whereNull('transaction_id')
     ->get();
     return view('register',$data);
   }
