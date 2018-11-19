@@ -25,9 +25,10 @@ Route::group(['middleware' => 'web'], function () {
   Route::get('/register', 'HomeController@register');
   Route::get('/logout', ['uses' => 'Auth\LoginController@logout']);
   Route::get('/verifyemail/{token}', 'Auth\RegisterController@verify');
+  Route::get('/verify/{id}', ['as' => 'verify', 'uses' => 'Auth\RegisterController@verify']);
+  Route::get('/transaction/success', ['as' => 'success_transaction', 'uses' => 'CRUDController@success']);
   //post
   Route::post('/registration', ['as' => 'user_register', 'uses' => 'Auth\RegisterController@register']);
-  Route::get('/verify/{id}', ['as' => 'verify', 'uses' => 'Auth\RegisterController@verify']);
   Route::post('/login-user',['as' => 'user_login', 'uses' => 'Auth\LoginController@loginProcess']);
   Route::post('/cart/transaction', ['as' => 'cart_transaction', 'uses' => 'CRUDController@transaction']);
   Route::post('/cart', ['as' => 'cart', 'uses' => 'CRUDController@store']);
