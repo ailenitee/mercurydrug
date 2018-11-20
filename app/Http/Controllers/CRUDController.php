@@ -189,14 +189,13 @@ class CRUDController extends Controller
         "name"=> "Gift Card ".$value->denomination,
         "quantity"=> $value->quantity,
         "amount"=> $value->denomination
-        // "amount"=> 10
       ];
     }
     $cart = [
       'amount' => (int)$input['total'],
       'redirect_url' => url('/transaction/success'),
       "user"=> [
-        "id"=> "1792765850792986",
+        "id"=> "".$user->id."",
         "firstName"=> $name[0],
         "lastName"=> $lastname,
         "email"=> $input['email'],
@@ -207,7 +206,7 @@ class CRUDController extends Controller
         "country"=>"PH",
         "zip"=> 1601,
       ],
-      "items"=>$items ,
+      "items"=>$items,
     ];
     $curl = curl_init();
     curl_setopt_array($curl, array(
@@ -234,83 +233,81 @@ class CRUDController extends Controller
     if ($err) {
       echo "cURL Error #:" . $err;
     }else {
-      $input['reference_num'] = $res->reference;
-      Transaction::insert($input);
-      Cart::where('user_id', $user->id)->orWhereNull('transaction_id')->update(array('transaction_id' => 'pending'));
-      return redirect('https://fxyccwxx7b.execute-api.us-east-1.amazonaws.com/dev'.$res->redirect_url);
+      if($res->success == true){
+        $input['reference_num'] = $res->reference;
+        Transaction::insert($input);
+        Cart::where('user_id', $user->id)->WhereNull('transaction_id')->update(array('transaction_id' => 'pending'));
+        return redirect('https://fxyccwxx7b.execute-api.us-east-1.amazonaws.com/dev'.$res->redirect_url);
+      }else{
+        return back()->with('error', 'Something went wrong');
+      }
     }
     // // TODO: only update latest transaction
     // // TODO: mobile format
-
-
   }
 
   public function success(Request $request){
     //if payment Successful
     // TODO: fix payment succesful
-    try {
-      $user = Auth::user();
-      $url = $request->fullUrl();
-      $parsedUrl = parse_url($url);
-      $parsed = $this->get_string_between($parsedUrl['query'], 'id=', '&');
-      Transaction::where('reference_num', $parsed)->update(array('status' => 'paid'));
-      Cart::where('user_id', $user->id)->where('transaction_id','pending')->update(array('transaction_id' => $parsed));
+    // TODO: fix trans id
+    // try {
+    $user = Auth::user();
+    $tid =request()->tid;
+    Transaction::where('reference_num', $tid)->update(array('status' => 'paid'));
+    Cart::where('user_id', $user->id)->where('transaction_id','pending')->update(array('transaction_id' => $tid));
 
-
-      $data['cart'] = DB::table('carts')
-      ->join('themes', 'themes.id', '=', 'carts.theme_id')
-      ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
-      ->select('carts.*','denominations.denomination','themes.theme')
-      ->where('user_id',$user->id)
-      ->where('transaction_id',$parsed)
-      ->get();
-      foreach ($data['cart'] as $key => $value){
-        if(!$value->address){
-          $string = str_replace('-', '', $value->mobile);
-          $mobile = preg_replace('/[^A-Za-z0-9\-]/', '', $string);
-          $input['mobile'] = $mobile;
-          $data1 = [
-            "organization_id"=> 7355,
-            "recipient_type"=> "mobile_number",
-            "mobile_numbers"=> [$mobile],
-            "message"=> "Hi ".$value->name.". You purchased a Mercury Gift Card worth P".$value->denomination.".",
-            "sender_id"=> "engageSPARK",
-          ];
-          $curl = curl_init();
-          curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://start.engagespark.com/api/v1/messages/sms",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30000,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => json_encode($data1),
-            CURLOPT_HTTPHEADER => array(
-              "accept: */*",
-              "accept-language: en-US,en;q=0.8",
-              "content-type: application/json",
-              "Authorization: Token 4731371c9df6da26988688315391fcc49a214a60"
-            ),
-          ));
-          $response = curl_exec($curl);
-          $res = json_decode($response);
-          $err = curl_error($curl);
-          curl_close($curl);
-        }else{
-          $string = str_replace('-', '', $value->mobile);
-          $mobile = preg_replace('/[^A-Za-z0-9\-]/', '', $string);
-          $input['mobile'] = $mobile;
-        }
+    $data['cart'] = DB::table('carts')
+    ->join('themes', 'themes.id', '=', 'carts.theme_id')
+    ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
+    ->select('carts.*','denominations.denomination','themes.theme')
+    ->where('user_id',$user->id)
+    ->where('transaction_id',$tid)
+    ->get();
+    foreach ($data['cart'] as $key => $value){
+      if(!$value->address){
+        $string = str_replace('-', '', $value->mobile);
+        $mobile = preg_replace('/[^A-Za-z0-9\-]/', '', $string);
+        $input['mobile'] = $mobile;
+        $data1 = [
+          "organization_id"=> 7355,
+          "recipient_type"=> "mobile_number",
+          "mobile_numbers"=> [$mobile],
+          "message"=> "Hi ".$value->name.". You purchased a Mercury Gift Card worth P".$value->denomination.".",
+          "sender_id"=> "engageSPARK",
+        ];
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => "https://start.engagespark.com/api/v1/messages/sms",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => "",
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 30000,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "POST",
+          CURLOPT_POSTFIELDS => json_encode($data1),
+          CURLOPT_HTTPHEADER => array(
+            "accept: */*",
+            "accept-language: en-US,en;q=0.8",
+            "content-type: application/json",
+            "Authorization: Token 4731371c9df6da26988688315391fcc49a214a60"
+          ),
+        ));
+        $response = curl_exec($curl);
+        $res = json_decode($response);
+        $err = curl_error($curl);
+        curl_close($curl);
+      }else{
+        $string = str_replace('-', '', $value->mobile);
+        $mobile = preg_replace('/[^A-Za-z0-9\-]/', '', $string);
+        $input['mobile'] = $mobile;
       }
-      return redirect('/')->with('success', 'Payment Successful!');
-    } catch (\Exception $e) {
-      // dd($e);
-      return redirect('/')->with('error', 'Payment Error!');
     }
+    return redirect('/')->with('success', 'Payment Successful!');
+    // } catch (\Exception $e) {
+    //   // dd($e);
+    //   return redirect('/')->with('error', 'Payment Error!');
+    // }
   }
-
-
   public function get_string_between($string, $start, $end){
     $string = ' ' . $string;
     $ini = strpos($string, $start);

@@ -11,6 +11,15 @@
     <div class="checkout_bg">
       <form class="" action="{{ route('cart_transaction') }}" method="post">
         {{ csrf_field() }}
+        @if(session()->has('success'))
+        <div class="alert alert-success">
+          {{ session()->get('success') }}
+        </div>
+        @elseif(session()->has('error'))
+        <div class="alert alert-danger">
+          {{ session()->get('error') }}
+        </div>
+        @endif
         <div class="order_summary">
           <h4>Order Summary</h4>
           <br>

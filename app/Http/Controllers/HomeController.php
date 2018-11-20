@@ -151,16 +151,16 @@ class HomeController extends Controller
   public function confirm()
   {
     $user = Auth::user();
-    $data['cart'] = DB::table('carts')
-    ->join('themes', 'themes.id', '=', 'carts.theme_id')
-    ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
-    ->where('user_id',$user->id)
-    ->where('transaction_id','pending')
-    ->orWhereNull('transaction_id')
-    ->get();
-    $data['amount'] = "";
     $user = Auth::user();
     if ($user){
+      $data['cart'] = DB::table('carts')
+      ->join('themes', 'themes.id', '=', 'carts.theme_id')
+      ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
+      ->where('user_id',$user->id)
+      ->where('transaction_id','pending')
+      ->orWhereNull('transaction_id')
+      ->get();
+      $data['amount'] = "";
       return view('confirm',$data);
     }else{
       return redirect()->route('login')->with('error2', 'User is required to login before checking out.');
