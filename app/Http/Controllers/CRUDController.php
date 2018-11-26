@@ -202,9 +202,9 @@ class CRUDController extends Controller
         "mobile"=> $input['mobile'],
         "address1"=> $input['Address'],
         "city"=> $input['city'],
-        "region"=>"Metro Manila",
-        "country"=>"PH",
-        "zip"=> 1601,
+        // "region"=>"Metro Manila",
+        // "country"=>"PH",
+        // "zip"=> 1601,
       ],
       "items"=>$items,
     ];
@@ -250,12 +250,12 @@ class CRUDController extends Controller
     //if payment Successful
     // TODO: fix payment succesful
     // TODO: fix trans id
-    // try {
+    try {
     $user = Auth::user();
     $tid =request()->tid;
     Transaction::where('reference_num', $tid)->update(array('status' => 'paid'));
     Cart::where('user_id', $user->id)->where('transaction_id','pending')->update(array('transaction_id' => $tid));
-
+    // dd($tid);
     $data['cart'] = DB::table('carts')
     ->join('themes', 'themes.id', '=', 'carts.theme_id')
     ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
@@ -303,10 +303,10 @@ class CRUDController extends Controller
       }
     }
     return redirect('/')->with('success', 'Payment Successful!');
-    // } catch (\Exception $e) {
-    //   // dd($e);
-    //   return redirect('/')->with('error', 'Payment Error!');
-    // }
+    } catch (\Exception $e) {
+      // dd($e);
+      return redirect('/')->with('error', 'Payment Error!');
+    }
   }
   public function get_string_between($string, $start, $end){
     $string = ' ' . $string;
