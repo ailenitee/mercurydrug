@@ -251,58 +251,61 @@ class CRUDController extends Controller
     // TODO: fix payment succesful
     // TODO: fix trans id
     try {
-    $user = Auth::user();
-    $tid =request()->tid;
-    Transaction::where('reference_num', $tid)->update(array('status' => 'paid'));
-    Cart::where('user_id', $user->id)->where('transaction_id','pending')->update(array('transaction_id' => $tid));
-    // dd($tid);
-    $data['cart'] = DB::table('carts')
-    ->join('themes', 'themes.id', '=', 'carts.theme_id')
-    ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
-    ->select('carts.*','denominations.denomination','themes.theme')
-    ->where('user_id',$user->id)
-    ->where('transaction_id',$tid)
-    ->get();
-    foreach ($data['cart'] as $key => $value){
-      if(!$value->address){
-        $string = str_replace('-', '', $value->mobile);
-        $mobile = preg_replace('/[^A-Za-z0-9\-]/', '', $string);
-        $input['mobile'] = $mobile;
-        $data1 = [
-          "organization_id"=> 7355,
-          "recipient_type"=> "mobile_number",
-          "mobile_numbers"=> [$mobile],
-          "message"=> "Hi ".$value->name.". You purchased a Mercury Gift Card worth P".$value->denomination.".",
-          "sender_id"=> "engageSPARK",
-        ];
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-          CURLOPT_URL => "https://start.engagespark.com/api/v1/messages/sms",
-          CURLOPT_RETURNTRANSFER => true,
-          CURLOPT_ENCODING => "",
-          CURLOPT_MAXREDIRS => 10,
-          CURLOPT_TIMEOUT => 30000,
-          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-          CURLOPT_CUSTOMREQUEST => "POST",
-          CURLOPT_POSTFIELDS => json_encode($data1),
-          CURLOPT_HTTPHEADER => array(
-            "accept: */*",
-            "accept-language: en-US,en;q=0.8",
-            "content-type: application/json",
-            "Authorization: Token 4731371c9df6da26988688315391fcc49a214a60"
-          ),
-        ));
-        $response = curl_exec($curl);
-        $res = json_decode($response);
-        $err = curl_error($curl);
-        curl_close($curl);
-      }else{
-        $string = str_replace('-', '', $value->mobile);
-        $mobile = preg_replace('/[^A-Za-z0-9\-]/', '', $string);
-        $input['mobile'] = $mobile;
+      $user = Auth::user();
+      $tid =request()->tid;
+      Transaction::where('reference_num', $tid)->update(array('status' => 'paid'));
+      Cart::where('user_id', $user->id)->where('transaction_id','pending')->update(array('transaction_id' => $tid));
+      // dd($tid);
+      $data['cart'] = DB::table('carts')
+      ->join('themes', 'themes.id', '=', 'carts.theme_id')
+      ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
+      ->select('carts.*','denominations.denomination','themes.theme')
+      ->where('user_id',$user->id)
+      ->where('transaction_id',$tid)
+      ->get();
+      foreach ($data['cart'] as $key => $value){
+        if(!$value->address){
+          $string = str_replace('-', '', $value->mobile);
+          $mobile = preg_replace('/[^A-Za-z0-9\-]/', '', $string);
+          $input['mobile'] = $mobile;
+          $data1 = [
+            "messages" => array(array(
+              "source"=> "php",
+              "from"=> "Mercury",
+              "body"=> "Hi ".$value->name.". You purchased a Mercury Gift Card worth P".$value->denomination.".",
+              "to"=> $input['mobile']
+            ))
+          ];
+          $curl = curl_init();
+          curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://rest.clicksend.com/v3/sms/send",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30000,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => json_encode($data1),
+            CURLOPT_USERPWD => "glyphleni:Pu&5@MWHlQ45",
+            CURLOPT_HTTPHEADER => array(
+              "accept: */*",
+              "accept-language: en-US,en;q=0.8",
+              "content-type: application/json",
+              "Authorization: Basic ". base64_encode("glyphleni:Pu&5@MWHlQ45")
+            ),
+          ));
+          $response = curl_exec($curl);
+          $res = json_decode($response);
+          $err = curl_error($curl);
+          curl_close($curl);
+          // dd($res,json_encode($data1),$data['cart'],$mobile);
+        }else{
+          $string = str_replace('-', '', $value->mobile);
+          $mobile = preg_replace('/[^A-Za-z0-9\-]/', '', $string);
+          $input['mobile'] = $mobile; 
+        }
       }
-    }
-    return redirect('/')->with('success', 'Payment Successful!');
+      return redirect('/')->with('success', 'Payment Successful!');
     } catch (\Exception $e) {
       // dd($e);
       return redirect('/')->with('error', 'Payment Error!');

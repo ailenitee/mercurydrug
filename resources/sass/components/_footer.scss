@@ -3,16 +3,24 @@
     color: $lightnav;
     .col-md-3{
         padding: 20px 0;
+        @media( max-width : 767px ){
+          padding: 10px 0;
+        }
     }
     .col-md-4{
         padding: 20px 0;
+        @media( max-width : 767px ){
+          padding: 10px 0;
+        }
     }
     .col-md-6{
         padding: 20px 0;
+        @media( max-width : 767px ){
+          padding: 10px 0;
+        }
     }
     ul{
-        list-style-type: none;
-
+        list-style-type: none; 
         margin: 0;
         text-align: center;
         width: 100%;
