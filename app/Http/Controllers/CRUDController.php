@@ -12,6 +12,7 @@ use Illuminate\Routing\UrlGenerator;
 use App\Cart\CartItem;
 use App\Cart\EasyCart;
 use App\Cart;
+use App\Logs;
 use App\Transaction;
 use Carbon\Carbon;
 class CRUDController extends Controller
@@ -251,6 +252,7 @@ class CRUDController extends Controller
     // TODO: fix payment succesful
     // TODO: fix trans id
     try {
+      $current_time = Carbon::now()->toDateTimeString();
       $user = Auth::user();
       $tid =request()->tid;
       Transaction::where('reference_num', $tid)->update(array('status' => 'paid'));
@@ -265,6 +267,41 @@ class CRUDController extends Controller
       ->get();
       foreach ($data['cart'] as $key => $value){
         if(!$value->address){
+          // get epin code from giftcard service
+          $gservice = array(
+            "template" =>   "1c315d9e-633a-4a4d-9e76-aa2dd5f3b9fd",
+              "amount"=>    $value->denomination,
+              "userId"=>    $value->user_id,
+              "name"=>      $value->name,
+              "background"=>$value->theme,
+              "timestamp"=> $current_time,
+              "theme"=>     "".$value->theme_id.""
+          );
+          $curl = curl_init();
+          curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://nhs935x875.execute-api.us-east-1.amazonaws.com/production/generate",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30000,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => json_encode($gservice),
+            CURLOPT_HTTPHEADER => array(
+              "accept: */*",
+              "accept-language: en-US,en;q=0.8",
+              "content-type: application/json",
+              "Authorization:  DSPL9aJwYM3XbTsDue8xsUPwbXq6rb3WcWGjfRZ7JzwBjgcZ"
+            ),
+          ));
+          $response = curl_exec($curl);
+          $res = json_decode($response);
+          $err = curl_error($curl);
+          dd($response,json_encode($gservice),$res);
+          curl_close($curl);
+          $logs['cart_id']=$data['cart']->id;
+
+          //send text message
           $string = str_replace('-', '', $value->mobile);
           $mobile = preg_replace('/[^A-Za-z0-9\-]/', '', $string);
           $input['mobile'] = $mobile;
@@ -272,7 +309,7 @@ class CRUDController extends Controller
             "messages" => array(array(
               "source"=> "php",
               "from"=> "Mercury",
-              "body"=> "Hi ".$value->name.". You purchased a Mercury Gift Card worth P".$value->denomination.".",
+              "body"=> "Hi ".$value->name.". You purchased a Mercury Gift Card worth P".$value->denomination.".<br><br>Here is your verification code ".$tid.".",
               "to"=> $input['mobile']
             ))
           ];
@@ -302,7 +339,7 @@ class CRUDController extends Controller
         }else{
           $string = str_replace('-', '', $value->mobile);
           $mobile = preg_replace('/[^A-Za-z0-9\-]/', '', $string);
-          $input['mobile'] = $mobile; 
+          $input['mobile'] = $mobile;
         }
       }
       return redirect('/')->with('success', 'Payment Successful!');
