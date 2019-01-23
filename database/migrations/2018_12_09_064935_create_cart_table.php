@@ -24,6 +24,7 @@ class CreateCartTable extends Migration
       $table->string('sender');
       $table->string('name');
       $table->string('quantity');
+      $table->string('code')->nullable();
       $table->string('address')->nullable();
       $table->string('message')->nullable();
       $table->string('mobile')->nullable();
