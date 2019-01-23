@@ -1,4 +1,4 @@
-@extends('includes.app')
+@extends('includes.app2')
 @section('content')
 <div class="login-container content" style="height:auto;">
   <div class="container">

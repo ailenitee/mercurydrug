@@ -48,7 +48,7 @@
           <div class="border-bottom">
             <div class="hid-xs">
               <div class="col-md-2">
-                <img src="{{$card->theme}}" alt="" class="confirm_img">
+                <img src="{{$card->url}}" alt="" class="confirm_img">
                 <br>
                 <p class="text-center">From: {{$card->name}}</p>
               </div>
@@ -77,7 +77,7 @@
                 @endif
               </div>
               <div class="col-md-2">
-                {{$card->denomination}}
+                {{$card->amount}}
               </div>
               <div class="col-md-1">
                 {{$card->quantity}}
@@ -96,7 +96,7 @@
             </div>
             <div class="hid-sm">
               <div class="col-xs-4">
-                <img src="{{$card->theme}}" alt="" class="confirm_img">
+                <img src="{{$card->url}}" alt="" class="confirm_img">
                 <div class="action_buttons">
                   <input type="hidden" name="id" value="{{$card->id}}">
                   <a href="{{url('/edit-cart',$card->id)}}">Edit</a>&nbsp;
@@ -111,7 +111,7 @@
                 <p>Send Text Message to: <b>{{$card->mobile}}</b></p>
                 @endif
                 <p>From: {{$card->sender}}</p>
-                <p>Amount: {{$card->denomination}}</p>
+                <p>Amount: {{$card->amount}}</p>
                 <p>Quantity: {{$card->quantity}}</p>
                 <p>Total: {{$card->total}}</p>
               </div>

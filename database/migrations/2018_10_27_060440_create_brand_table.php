@@ -14,14 +14,12 @@ class CreateBrandTable extends Migration
     public function up()
     {
         Schema::create('brands', function (Blueprint $table) {
-          // TODO: client_id
             $table->increments('id');
-            $table->unsignedInteger('client_id')->unsigned()->nullable();
-            $table->string('brand');
-            $table->string('themes');
-            $table->string('logo');
-            $table->string('printables')->nullable();
-            $table->string('code')->unique()->nullable();
+            $table->unsignedInteger('client_id')->unsigned();
+            $table->string('name');
+            $table->string('banner');
+            $table->string('thumbnail');
+            $table->string('epin_brand');
             $table->timestamps();
             $table->engine = "InnoDB";
         });

@@ -1,13 +1,13 @@
 <?php
 
 namespace App;
-use App\Category;
+
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Config extends Model
 {
-  protected $table = "categories";
-  protected $fillable = ["name","url"];
+  protected $table = "configs";
+  protected $fillable = ["attribute","value","client_id"];
 
   public function getFillable(){
       return $this->fillable;

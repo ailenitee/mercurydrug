@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Denomination extends Model
 {
   protected $table = "denominations";
-  protected $fillable = ["denomination"];
+  protected $fillable = ["amount","text"];
 
   public function getFillable(){
       return $this->fillable;

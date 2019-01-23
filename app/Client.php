@@ -7,9 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Client extends Model
 {
   protected $table = "clients";
-  protected $fillable = ['code','name','bot_name','access_token','priority','physical'];
+  protected $fillable = ['convenience_fee','name','bot_name','access_token'];
 
   public function getFillable(){
-      return $this->fillable;
+    return $this->fillable;
+  }
+  public function brand()
+  {
+    return $this->belongsToMany(Brand::class, 'id');
   }
 }

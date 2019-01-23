@@ -25,7 +25,6 @@ class HomeController extends Controller
   public function index()
   {
     $user = Auth::user();
-    // dd(last(session()->get('user_id')));
     if ($user){
       if(session()->get('user_id')){
         $data['carts'] = DB::table('carts')
@@ -38,9 +37,10 @@ class HomeController extends Controller
       ->update(array('user_type' => 'user'));
 
       $data['cart'] = DB::table('carts')
-      ->join('themes', 'themes.id', '=', 'carts.theme_id')
-      ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
-      ->select('carts.*','denominations.denomination','themes.theme')
+      ->join('template_categories', 'carts.template_category_id', '=', 'template_categories.id')
+      ->join('categories', 'template_categories.category_id', '=', 'categories.id')
+      ->join('template_denominations', 'carts.template_denomination_id', '=', 'template_denominations.id')
+      ->join('denominations', 'template_denominations.denomination_id', '=', 'denominations.id')
       ->where('user_id',$user->id)
       ->where('transaction_id','pending')
       ->orWhereNull('transaction_id')
@@ -49,18 +49,19 @@ class HomeController extends Controller
     }else{
       if(session()->get('user_id')){
         $data['cart'] = DB::table('carts')
-        ->join('themes', 'themes.id', '=', 'carts.theme_id')
-        ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
-        ->select('carts.*','denominations.denomination','themes.theme')
+        ->join('template_categories', 'carts.template_category_id', '=', 'template_categories.id')
+        ->join('categories', 'template_categories.category_id', '=', 'categories.id')
+        ->join('template_denominations', 'template_categories.brand_id', '=', 'template_denominations.brand_id')
+        ->join('denominations', 'template_denominations.denomination_id', '=', 'denominations.id')
         ->where('user_id',last(session()->get('user_id')))
         ->where('transaction_id','pending')
         ->orWhereNull('transaction_id')
         ->get();
       }else{
         $data['cart'] = DB::table('carts')
-        ->join('themes', 'themes.id', '=', 'carts.theme_id')
-        ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
-        ->select('carts.*','denominations.denomination','themes.theme')
+        ->join('template_categories', 'template_categories.id', '=', 'carts.template_category_id')
+        ->join('template_denominations', 'template_denominations.id', '=', 'carts.template_denomination_id')
+        ->select('carts.*')
         ->where('user_id',0)
         ->where('transaction_id','pending')
         ->orWhereNull('transaction_id')
@@ -72,27 +73,22 @@ class HomeController extends Controller
     $data['brand'] = DB::table('brands')
     ->where('id', 1)
     ->get();
-    foreach ($data['brand'] as $key => $value){
-      $data['brand_id'] = 1;
-      $denum = explode(',' ,$value->themes);
-    }
-    $count = count($denum);
-    $data['count'] = count($denum);
-    $data['allThemes'] = $denum;
-    foreach ($denum  as $key => $value){
-      $intval= (int)$value;
-      $data['denum'][] = DB::table('denominations')
-      ->leftJoin('themes', 'themes.denomination_id', '=', 'denominations.id')
-      ->where('themes.id',$intval)
-      ->get();
-    }
+    $data['brand_id'] = 1;
+    $data['denum'][] = DB::table('template_categories')
+    ->join('categories', 'template_categories.category_id', '=', 'categories.id')
+    ->join('template_denominations', 'template_categories.brand_id', '=', 'template_denominations.brand_id')
+    ->join('denominations', 'template_denominations.denomination_id', '=', 'denominations.id')
+    ->where('template_categories.brand_id',1)
+    ->get();
+    $count = count($data['denum']);
+    $data['count'] = count($data['denum']);
+    $data['allThemes'] = $data['denum'];
+    // dd($data);
     $data['sender'] = "";
     $data['mobile'] = "";
     $data['total'] = "";
     $data['address'] = "";
     $data['name'] = "";
-    // dd(session()->getId());
-    // dd($data);
     return view('index',$data);
   }
 
@@ -154,8 +150,10 @@ class HomeController extends Controller
     $user = Auth::user();
     if ($user){
       $data['cart'] = DB::table('carts')
-      ->join('themes', 'themes.id', '=', 'carts.theme_id')
-      ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
+      ->join('template_categories', 'carts.template_category_id', '=', 'template_categories.id')
+      ->join('categories', 'template_categories.category_id', '=', 'categories.id')
+      ->join('template_denominations', 'carts.template_denomination_id', '=', 'template_denominations.id')
+      ->join('denominations', 'template_denominations.denomination_id', '=', 'denominations.id')
       ->where('user_id',$user->id)
       ->where('transaction_id','pending')
       ->orWhereNull('transaction_id')
@@ -171,13 +169,19 @@ class HomeController extends Controller
   {
     $user = Auth::user();
     $data['cart'] = DB::table('carts')
-    ->join('themes', 'themes.id', '=', 'carts.theme_id')
-    ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
-    ->select('carts.*','denominations.denomination','themes.theme')
+    ->join('template_categories', 'carts.template_category_id', '=', 'template_categories.id')
+    ->join('categories', 'template_categories.category_id', '=', 'categories.id')
+    ->join('template_denominations', 'carts.template_denomination_id', '=', 'template_denominations.id')
+    ->join('denominations', 'template_denominations.denomination_id', '=', 'denominations.id')
     ->where('user_id',$user->id)
     ->where('transaction_id','pending')
     ->orWhereNull('transaction_id')
     ->get();
+
+    foreach ($data['cart']  as $key => $value){
+      $data['cart_id'][]= $value->id;
+    }
+    // dd($data);
     if ($user){
       return view('checkout',$data);
     }else{
@@ -188,30 +192,20 @@ class HomeController extends Controller
   public function login()
   {
     $user = Auth::user();
-    $data['cart'] = DB::table('carts')
-    ->join('themes', 'themes.id', '=', 'carts.theme_id')
-    ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
-    ->select('carts.*','denominations.denomination','themes.theme')
-    ->get();
     if ($user){
       return view('index',$data);
     }else{
-      return view('login',$data);
+      return view('login');
     }
   }
 
   public function register()
   {
     $user = Auth::user();
-    $data['cart'] = DB::table('carts')
-    ->join('themes', 'themes.id', '=', 'carts.theme_id')
-    ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
-    ->select('carts.*','denominations.denomination','themes.theme')
-    ->get();
     if ($user){
       return view('index',$data);
     }else{
-      return view('register',$data);
+      return view('register');
     }
   }
 }

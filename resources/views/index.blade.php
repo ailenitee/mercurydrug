@@ -43,12 +43,12 @@
             @foreach ($result as $key => $denum)
               <div class="col-md-4">
                 <div class="brand-container">
-                  <img alt="" class="denum" src="{{$denum->theme}}">
+                  <img alt="" class="denum" src="{{$denum->url}}">
                   <br>
                   <input type="hidden" name="" value="{{$loop->count}}" class="counter">
                   <div class="denums-margins">
                     <label class="radio-inline">
-                      &#8369; {{$denum->denomination}}
+                      &#8369; {{$denum->amount}}
                     </label>
                   </div>
                   <div class="quantity">
@@ -61,7 +61,8 @@
                       </span>
                       <?php $x++; ?>
                       <input type="text" name="quantityVal[{{$x}}]" class="form-control input-number quantity-{{$key}}" value="0" min="0" max="100">
-                      <input type="hidden" name="themeID[{{$x}}]" value="{{$denum->id}}">
+                      <input type="hidden" name="themeID[{{$x}}]" value="{{$denum->category_id}}">
+                      <input type="hidden" name="denomID[{{$x}}]" value="{{$denum->denomination_id}}">
                       <span class="input-group-btn">
                         <button type="button" style="margin-top:0; " class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
                           <span class="glyphicon glyphicon-plus"></span>

@@ -16,8 +16,9 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('role_id')->unsigned();
+            $table->unsignedInteger('client_id')->unsigned();
             $table->string('name');
-            $table->string('email')->unique(); 
+            $table->string('email')->unique();
             $table->string('mobile');
             $table->string('password');
             $table->string('status');
@@ -28,6 +29,7 @@ class CreateUsersTable extends Migration
         Schema::table('users', function(Blueprint $table)
         {
           $table->foreign('role_id')->references('id')->on('roles')->onDelete('restrict')->onUpdate('restrict');
+          $table->foreign('client_id')->references('id')->on('clients')->onDelete('restrict')->onUpdate('restrict');
         });
     }
 

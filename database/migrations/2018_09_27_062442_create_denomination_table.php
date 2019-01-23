@@ -15,7 +15,8 @@ class CreateDenominationTable extends Migration
     {
         Schema::create('denominations', function (Blueprint $table) {
             $table->increments('id')->unsigned();
-            $table->string('denomination');
+            $table->string('amount');
+            $table->string('text');
             $table->timestamps();
             $table->engine = "InnoDB";
         });

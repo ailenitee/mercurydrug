@@ -1,4 +1,5 @@
-@extends('includes.app')
+@extends('includes.app2')
+<!-- app2.blade.php = without cart modal -->
 @section('content')
 <div class="login-container content">
   <div class="container">

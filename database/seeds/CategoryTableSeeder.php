@@ -13,34 +13,43 @@ class CategoryTableSeeder extends Seeder
     {
       $data = [
         [
-          'category'				          => 'Birthday'
+          'name'				          => 'Birthday',
+          'url'				            => 'https://s3.amazonaws.com/smgiftcard/images/giftcard/Birthday.jpg',
         ],
         [
-          'category'				          => 'Christmas'
+          'name'				          => 'Christmas',
+          'url'				            => 'https://s3.amazonaws.com/smgiftcard/images/giftcard/Christmas1.jpg'
         ],
         [
-          'category'				          => 'Congratulations'
+          'name'				          => 'Congratulations',
+          'url'				            => 'https://s3.amazonaws.com/smgiftcard/images/giftcard/Congratulations.jpg'
         ],
         [
-          'category'				          => 'For Her'
+          'name'				          => 'For Her',
+          'url'				            => 'https://s3.amazonaws.com/smgiftcard/images/giftcard/ForHer.jpg'
         ],
         [
-          'category'				          => 'For Him'
+          'name'				          => 'For Him',
+          'url'				            => 'https://s3.amazonaws.com/smgiftcard/images/giftcard/ForHim.jpg'
         ],
         [
-          'category'				          => 'Love'
+          'name'				          => 'Love',
+          'url'				            => 'https://s3.amazonaws.com/smgiftcard/images/giftcard/Love.jpg'
         ],
         [
-          'category'				          => 'Get Well Soon'
+          'name'				          => 'Get Well Soon',
+          'url'				            => 'https://s3.amazonaws.com/smgiftcard/images/giftcard/GetWellSoon.jpg'
         ],
         [
-          'category'				          => 'Regular'
+          'name'				          => 'Regular',
+          'url'				            => 'Regular'
         ],
       ];
       foreach ($data as $key)
       {
         Category::create([
-          'category'                => $key['category']
+          'name'                => $key['name'],
+          'url'                 => $key['url']
         ]);
       }
     }

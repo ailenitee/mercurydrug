@@ -38,6 +38,11 @@
           @foreach ($cart as $card)
           <div class="total-cart" style="display:none;">{{$card->total}}</div>
           @endforeach
+          <?php $x = 0; ?>
+          @foreach ($cart_id as $id)
+          <?php $x++; ?>
+          <input type="hidden" name="cartID[{{$x}}]" class="form-control" value="{{$id}}">
+          @endforeach
         </div>
         <hr>
         <div class="m-top">

@@ -13,72 +13,386 @@ class BrandTableSeeder extends Seeder
     {
       $data = [
         [
-          'brand'				          => 'Mercury Drug',
-          'themes'				      	=> '22,23,1',
-          'logo'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/mercurydrug.jpg'
-        ],
-        [
-          'brand'				          => 'National Bookstore',
-          'themes'					      => '3,4,5,6,7',
-          'logo'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/national.png'
-        ],
-        [
-          'brand'				          => 'Uniqlo',
-          'themes'				      	=> '2,3,8',
-          'logo'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/uniqlo.png'
-        ],
-        [
-          'brand'				          => 'SM Supermarket',
-          'themes'					      => '1,2,3',
-          'logo'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/supermarket.png'
-        ],
-        [
-          'brand'				          => 'Jollibee',
-          'themes'					      => '2,5,9,10',
-          'logo'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/jollibee.png'
-        ],
-        [
-          'brand'				          => 'Bench',
-          'themes'					      => '1,2,3,4,5',
-          'logo'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/bench.png'
-        ],
-        [
-          'brand'				          => 'Ace Hardware',
-          'themes'					      => '8,9,11,12',
-          'logo'					        => url()->current().'/img/partners/AceHardware.png'
-        ],
-        [
-          'brand'				          => 'Beauty Manila',
-          'themes'					      => '1,2',
-          'logo'					        => url()->current().'/img/partners/beautymnl.png'
-        ],
-        [
-          'brand'				          => 'Ever Bilena',
-          'themes'					      => '1,2',
-          'logo'					        => url()->current().'/img/partners/EverBilena.png'
-        ],
-        [
-          'brand'				          => 'Shakeys',
-          'themes'				       	=> '1,2',
-          'logo'					        => url()->current().'/img/partners/Shakeys.png'
-        ],
-        [
-          'brand'				          => 'Toy Kingdom',
-          'themes'					      => '1,2',
-          'logo'					        => url()->current().'/img/partners/toykingdom.png'
-        ],
-        [
-          'brand'				          => 'True Value',
-          'themes'					      => '1,2',
-          'logo'					        => url()->current().'/img/partners/TrueValue.png'
+          'client_id'				          => '1',
+          'name'				      	      => 'Mercury Drug',
+          'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/mercurydrug.png',
+          'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/mercurydrug.png',
+          'epin_brand'					      => 'b7f72cbb-9963-11e8-b635-00ffed3be7b6',
         ]
+        // [
+        //   'client_id'				          => '7',
+        //   'name'				      	      => 'Greenwich',
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/greenwich.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/greenwich.png',
+        //   'epin_brand'					      => '45f2fcb4-c216-11e8-89b5-00ff53a6f1ff',
+        // ],
+        // [
+        //   'client_id'				          => '8',
+        //   'name'				      	      => 'Jollibee',
+        //   'banner'					          => 'https://s3.amazonaws.com/giftcardimages-dev/images/banner/jollibee.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/jollibee.png',
+        //   'epin_brand'					      => '6eb70f91-0fe8-4266-b6b7-6743e6d7c31e',
+        // ],
+        // [
+        //   'client_id'				          => '2',
+        //   'name'				      	      => 'Maple',
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/maple.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/maple.png',
+        //   'epin_brand'					      => '1d522782-35f9-4fa3-94a0-612b6337b866',
+        // ],
+        // [
+        //   'client_id'				          => '2',
+        //   'name'				      	      => 'Teriyaki Boy',
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/teriyakiboy.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/teriyakiboy.png',
+        //   'epin_brand'					      => '5076c9ae-dbbe-40be-b524-b457e86527f3',
+        // ],
+        // [
+        //   'client_id'				          => '2',
+        //   'name'				      	      => 'Dencios',
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/dencios.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/dencios.png',
+        //   'epin_brand'					      => '5ffc5582-da34-408c-9143-8d44445184b6',
+        // ],
+        // [
+        //   'client_id'				          => '2',
+        //   'name'				      	      => 'Krispy Kreme',
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/krispykreme.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/krispykreme.png',
+        //   'epin_brand'					      => '6c4b60e4-721a-4bcf-9875-68dc4ca98495',
+        // ],
+        // [
+        //   'client_id'				          => '2',
+        //   'name'				      	      => 'Singkit',
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/singkit.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/singkit.png',
+        //   'epin_brand'					      => '6e318ba9-2981-404a-aa4f-df12da7ebbef',
+        // ],
+        // [
+        //   'client_id'				          => '2',
+        //   'name'				      	      => 'Coeur de France',
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/coeurdefrance.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/coeurdefrance.png',
+        //   'epin_brand'					      => '888c19bd-9728-4970-8cb6-e7fda438f7ba',
+        // ],
+        // [
+        //   'client_id'				          => '2',
+        //   'name'				      	      => "Max's Corner Bakery",
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/maxscornerbakery.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/maxscornerbakery.png',
+        //   'epin_brand'					      => '89923394-fdda-4124-88e0-64e8030b4829',
+        // ],
+        // [
+        //   'client_id'				          => '2',
+        //   'name'				      	      => "Sizzling Steak",
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/sizzlingsteak.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/sizzlingsteak.png',
+        //   'epin_brand'					      => '8ae98795-ca49-417d-869e-00f54ad8a1a9',
+        // ],
+        // [
+        //   'client_id'				          => '2',
+        //   'name'				      	      => "Kabisera",
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/kabisera.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/kabisera.png',
+        //   'epin_brand'					      => 'a3f8338f-b108-44e3-bf1e-58bd2ceb0e73',
+        // ],
+        // [
+        //   'client_id'				          => '2',
+        //   'name'				      	      => "Jamba",
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/jamba.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/jamba.png',
+        //   'epin_brand'					      => 'a70a3ce7-de74-4d4a-af84-a3a7c12d7b2e',
+        // ],
+        // [
+        //   'client_id'				          => '2',
+        //   'name'				      	      => "Yellow Cab",
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/yellowcab.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/yellowcab.png',
+        //   'epin_brand'					      => 'a9cd5dc9-4f8c-4232-aa54-27ea4efda7da',
+        // ],
+        // [
+        //   'client_id'				          => '2',
+        //   'name'				      	      => "Mercury Drug",
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/mercury.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/mercury.png',
+        //   'epin_brand'					      => 'bf035ede-cd9f-4c43-94c0-88b35baea20f',
+        // ],
+        // [
+        //   'client_id'				          => '2',
+        //   'name'				      	      => "Contis",
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/contis.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/contis.png',
+        //   'epin_brand'					      => 'd77b93a2-be64-46c5-936e-ba5dfc26adc3',
+        // ],
+        // [
+        //   'client_id'				          => '2',
+        //   'name'				      	      => "Pancake House",
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/pancakehouse.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/pancakehouse.png',
+        //   'epin_brand'					      => 'e2d547d0-78d7-4eba-b270-895cd386e753',
+        // ],
+        // [
+        //   'client_id'				          => '2',
+        //   'name'				      	      => "Max",
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/max.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/max.png',
+        //   'epin_brand'					      => 'f54e4f9e-3c61-4962-b1ec-01d974419361',
+        // ],
+        // [
+        //   'client_id'				          => '9',
+        //   'name'				      	      => "Robinsons Supermarket",
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/robinsonsupermarket.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/robinsonsupermarket.png',
+        //   'epin_brand'					      => '2ddeb64c-21b2-4b77-95c2-b7c898ec1b60',
+        // ],
+        // [
+        //   'client_id'				          => '9',
+        //   'name'				      	      => "Robinsons Department Store",
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/robinsondept.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/robinsondept.png',
+        //   'epin_brand'					      => '354fcc71-aa92-4af2-88e2-2f6f60b6e06d',
+        // ],
+        // [
+        //   'client_id'				          => '9',
+        //   'name'				      	      => "Mang Inasal",
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/manginasal.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/manginasal.png',
+        //   'epin_brand'					      => '38a28d8d-5683-4e58-ac2c-804454ed84d8',
+        // ],
+        // [
+        //   'client_id'				          => '9',
+        //   'name'				      	      => "Robinsons Movie World",
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/robinsonmovie.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/robinsonmovie.png',
+        //   'epin_brand'					      => '3a0f6c3e-4586-45b2-95fc-3dc993cee2f3',
+        // ],
+        // [
+        //   'client_id'				          => '9',
+        //   'name'				      	      => "Robinsons Appliances",
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/robinsonappliances.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/robinsonappliances.png',
+        //   'epin_brand'					      => '50c66122-0b58-4004-839a-7975c91a17aa',
+        // ],
+        // [
+        //   'client_id'				          => '9',
+        //   'name'				      	      => "Toys R Us",
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/toysrus.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/toysrus.png',
+        //   'epin_brand'					      => '63397136-264a-4914-9ea6-484061fcdf3a',
+        // ],
+        // [
+        //   'client_id'				          => '9',
+        //   'name'				      	      => "Chowking",
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/chowking.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/chowking.png',
+        //   'epin_brand'					      => '9d4e87c9-b305-4b2b-a6a5-7b9752f8d18a',
+        // ],
+        // [
+        //   'client_id'				          => '9',
+        //   'name'				      	      => "Red Ribbon",
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/redribbon.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/redribbon.png',
+        //   'epin_brand'					      => 'a3a85c83-d8a6-46ac-a8a6-47841b88998c',
+        // ],
+        // [
+        //   'client_id'				          => '9',
+        //   'name'				      	      => "Handyman",
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/handyman.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/handyman.png',
+        //   'epin_brand'					      => 'b14d2674-8195-4dc9-a6f5-6d9c8dfe350f',
+        // ],
+        // [
+        //   'client_id'				          => '3',
+        //   'name'				      	      => "Swatch",
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/swatch.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/swatch.png',
+        //   'epin_brand'					      => '114dd989-d423-4904-8ac6-c721bf1b5895',
+        // ],
+        // [
+        //   'client_id'				          => '3',
+        //   'name'				      	      => "Dads",
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/dads.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/dads.png',
+        //   'epin_brand'					      => '128a0a75-5b4c-4045-9edf-bbb8be0abbae',
+        // ],
+        // [
+        //   'client_id'				          => '3',
+        //   'name'				      	      => "Bench",
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/bench.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/bench.png',
+        //   'epin_brand'					      => '15949bf1-cf4c-44f9-a109-b023db09d7ab',
+        // ],
+        // [
+        //   'client_id'				          => '3',
+        //   'name'				      	      => "Uniqlo",
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/uniqlo.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/uniqlo.png',
+        //   'epin_brand'					      => '1c315d9e-633a-4a4d-9e76-aa2dd5f3b9fd',
+        // ],
+        // [
+        //   'client_id'				          => '3',
+        //   'name'				      	      => "Sambokojin",
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/sambokojin.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/sambokojin.png',
+        //   'epin_brand'					      => '253e51b1-eeed-471f-be6b-3ad247eb6eeb',
+        // ],
+        // [
+        //   'client_id'				          => '3',
+        //   'name'				      	      => "Watsons",
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/watsons.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/watsons.png',
+        //   'epin_brand'					      => '48bcd26c-47f3-4d28-bd49-8197a2b5971e',
+        // ],
+        // [
+        //   'client_id'				          => '3',
+        //   'name'				      	      => "Jollibee",
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/jollibee.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/jollibee.png',
+        //   'epin_brand'					      => '4aa7e026-c6a5-49ec-8f72-7492574cdaa7',
+        // ],
+        // [
+        //   'client_id'				          => '3',
+        //   'name'				      	      => "SM",
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/sm.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/sm.png',
+        //   'epin_brand'					      => '4e7e13f7-9309-4927-8057-02c6cb16b512',
+        // ],
+        // [
+        //   'client_id'				          => '3',
+        //   'name'				      	      => "Underarmour",
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/underarmour.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/underarmour.png',
+        //   'epin_brand'					      => '6ece08bb-dae6-4acb-93fe-2dbfb6a51f97',
+        // ],
+        // [
+        //   'client_id'				          => '3',
+        //   'name'				      	      => "Vikings",
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/vikings.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/vikings.png',
+        //   'epin_brand'					      => 'cbaa7784-ef36-4750-a0dd-9947b6dd5acc',
+        // ],
+        // [
+        //   'client_id'				          => '3',
+        //   'name'				      	      => "CLN",
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/cln.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/cln.png',
+        //   'epin_brand'					      => 'd4e7b4b7-1ae4-4ceb-bf9a-86e6597d5b15',
+        // ],
+        // [
+        //   'client_id'				          => '3',
+        //   'name'				      	      => "SM Supermarket",
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/supermarket.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/supermarket.png',
+        //   'epin_brand'					      => 'dd0cedd4-db0c-49ce-b608-bd746c60869d',
+        // ],
+        // [
+        //   'client_id'				          => '3',
+        //   'name'				      	      => "National Bookstore",
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/national.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/national.png',
+        //   'epin_brand'					      => 'ec62e4b3-7d34-42dd-8219-16dd0d3e8bae',
+        // ],
+        // [
+        //   'client_id'				          => '3',
+        //   'name'				      	      => "SM Cinema",
+        //   'banner'					          => 'https://s3.amazonaws.com/smgiftcard/images/banner/cinema.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/smgiftcard/images/thumbnails/cinema.png',
+        //   'epin_brand'					      => 'fcc92c8d-1249-4143-8b18-f24e314d4da5',
+        // ],
+        // [
+        //   'client_id'				          => '10',
+        //   'name'				      	      => "Sushi Overload Party Box",
+        //   'banner'					          => 'https://s3.amazonaws.com/botcardtemplatefiles-dev/images/SOPartyBo.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/botcardtemplatefiles-dev/images/SOPartyBo.png',
+        //   'epin_brand'					      => '0020e262-fbe5-4609-bc67-822b07b331c9',
+        // ],
+        // [
+        //   'client_id'				          => '10',
+        //   'name'				      	      => "Classic Party Box",
+        //   'banner'					          => 'https://s3.amazonaws.com/botcardtemplatefiles-dev/images/ClassPartyBox.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/botcardtemplatefiles-dev/images/ClassPartyBox.png',
+        //   'epin_brand'					      => '0886838e-5dcd-48ae-bc56-eaba09dd7d4f',
+        // ],
+        // [
+        //   'client_id'				          => '10',
+        //   'name'				      	      => "Sushi Cake with Aburi Sauce",
+        //   'banner'					          => 'https://s3.amazonaws.com/botcardtemplatefiles-dev/images/SCake.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/botcardtemplatefiles-dev/images/SCake.png',
+        //   'epin_brand'					      => '16d87885-2199-4f68-bc33-005617ae0956',
+        // ],
+        // [
+        //   'client_id'				          => '10',
+        //   'name'				      	      => "Veggie Sushi Cake",
+        //   'banner'					          => 'https://s3.amazonaws.com/botcardtemplatefiles-dev/images/veggieSushiCake.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/botcardtemplatefiles-dev/images/veggieSushiCake.png',
+        //   'epin_brand'					      => '2efc3182-1ae5-4cbc-b78c-5c47a46624c9',
+        // ],
+        // [
+        //   'client_id'				          => '10',
+        //   'name'				      	      => "Best of the Best",
+        //   'banner'					          => 'https://s3.amazonaws.com/botcardtemplatefiles-dev/images/BBPartyBox.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/botcardtemplatefiles-dev/images/BBPartyBox.png',
+        //   'epin_brand'					      => '4c6716ff-3bf1-4baf-94ae-e0e339341f6d',
+        // ],
+        // [
+        //   'client_id'				          => '10',
+        //   'name'				      	      => "Sushi Cake",
+        //   'banner'					          => 'https://s3.amazonaws.com/botcardtemplatefiles-dev/images/SCake.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/botcardtemplatefiles-dev/images/SCake.png',
+        //   'epin_brand'					      => '5818b5cf-04f9-47fa-b2d1-203a74f17334',
+        // ],
+        // [
+        //   'client_id'				          => '10',
+        //   'name'				      	      => "Spicy Sushi Cake",
+        //   'banner'					          => 'https://s3.amazonaws.com/botcardtemplatefiles-dev/images/spicySushiCake.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/botcardtemplatefiles-dev/images/spicySushiCake.png',
+        //   'epin_brand'					      => '8d598002-5bdf-4040-8807-8bd1843dc17b',
+        // ],
+        // [
+        //   'client_id'				          => '10',
+        //   'name'				      	      => "California Party Box",
+        //   'banner'					          => 'https://s3.amazonaws.com/botcardtemplatefiles-dev/images/CaliPartyBox.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/botcardtemplatefiles-dev/images/CaliPartyBox.png',
+        //   'epin_brand'					      => 'd426535a-e3be-45f9-a618-2173df5dc6ea',
+        // ],
+        // [
+        //   'client_id'				          => '10',
+        //   'name'				      	      => "Super Party Tray",
+        //   'banner'					          => 'https://s3.amazonaws.com/botcardtemplatefiles-dev/images/SPartyBox.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/botcardtemplatefiles-dev/images/SPartyBox.png',
+        //   'epin_brand'					      => 'e41d2bbd-38f6-46d0-898b-fa1dda2ba479',
+        // ],
+        // [
+        //   'client_id'				          => '10',
+        //   'name'				      	      => "All in One",
+        //   'banner'					          => 'https://s3.amazonaws.com/botcardtemplatefiles-dev/images/allInOne.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/botcardtemplatefiles-dev/images/allInOne.png',
+        //   'epin_brand'					      => 'fe93ad88-5a72-44a0-aca6-936bf21643aa',
+        // ],
+        // [
+        //   'client_id'				          => '6',
+        //   'name'				      	      => "Swatch",
+        //   'banner'					          => 'https://s3.amazonaws.com/botcardtemplatefiles-dev/images/swatch-global.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/botcardtemplatefiles-dev/images/swatch-global.png',
+        //   'epin_brand'					      => '9df958ee-eb5d-42c8-8b92-64b63f02bd31',
+        // ],
+        // [
+        //   'client_id'				          => '7',
+        //   'name'				      	      => "Total Gas Card",
+        //   'banner'					          => 'https://s3.amazonaws.com/botcardtemplatefiles-dev/images/greenwich.png',
+        //   'thumbnail'					        => 'https://s3.amazonaws.com/botcardtemplatefiles-dev/images/greenwich.png',
+        //   'epin_brand'					      => '63c26e4e-fd00-447c-843f-48c9edb414fd',
+        // ],
+
       ];
       foreach ($data as $key)
       {
         Brand::create([
-          'brand'                => $key['brand'],
-          'themes'               => $key['themes'],
-          'logo'                 => $key['logo']
+          'client_id'                => $key['client_id'],
+          'name'                     => $key['name'],
+          'banner'                   => $key['banner'],
+          'thumbnail'                => $key['thumbnail'],
+          'epin_brand'               => $key['epin_brand']
         ]);
       }
     }

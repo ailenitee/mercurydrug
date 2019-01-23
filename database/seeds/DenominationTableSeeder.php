@@ -13,25 +13,31 @@ class DenominationTableSeeder extends Seeder
     {
       $data = [
         [
-          'denomination'					=> '100'
+          'amount'					=> '100',
+          'text'		      	=> 'One Hundred Pesos'
         ],
         [
-          'denomination'					=> '200'
+          'amount'					=> '200',
+          'text'			      => 'Two Hundred Pesos'
         ],
         [
-          'denomination'					=> '500'
+          'amount'					=> '500',
+          'text'		      	=> 'Five Hundred Pesos'
         ],
         [
-          'denomination'					=> '1000'
+          'amount'					=> '1000',
+          'text'		      	=> 'One Thousand Pesos'
         ],
         [
-          'denomination'					=> '2000'
+          'amount'					=> '2000',
+          'text'		      	=> 'Two Thousand Pesos'
         ]
       ];
       foreach ($data as $key)
       {
         Denomination::create([
-          'denomination'         => $key['denomination']
+          'amount'         => $key['amount'],
+          'text'    => $key['text'],
         ]);
       }
     }

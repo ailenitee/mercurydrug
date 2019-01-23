@@ -16,8 +16,8 @@ class CreateCartTable extends Migration
     Schema::create('carts', function (Blueprint $table) {
       $table->increments('id');
       $table->unsignedInteger('brand_id')->unsigned();
-      $table->unsignedInteger('theme_id')->unsigned();
-      $table->unsignedInteger('product_id')->nullable()->unsigned();
+      $table->unsignedInteger('template_category_id')->unsigned();//fk
+      $table->unsignedInteger('template_denomination_id')->unsigned();//fk
       $table->string('transaction_id')->nullable();
       $table->string('user_id');
       $table->string('user_type');
@@ -27,6 +27,8 @@ class CreateCartTable extends Migration
       $table->string('address')->nullable();
       $table->string('message')->nullable();
       $table->string('mobile')->nullable();
+      $table->string('fulfillment_type')->nullable();
+      $table->string('pickup_date')->nullable();
       $table->string('total');
       $table->timestamps();
       $table->engine = "InnoDB";
@@ -34,8 +36,8 @@ class CreateCartTable extends Migration
     Schema::table('carts', function(Blueprint $table)
     {
       $table->foreign('brand_id')->references('id')->on('brands')->onDelete('restrict')->onUpdate('restrict');
-      $table->foreign('theme_id')->references('id')->on('themes')->onDelete('restrict')->onUpdate('restrict');
-      $table->foreign('product_id')->references('id')->on('products')->onDelete('restrict')->onUpdate('restrict');
+      $table->foreign('template_category_id')->references('id')->on('template_categories')->onDelete('restrict')->onUpdate('restrict');
+      $table->foreign('template_denomination_id')->references('id')->on('template_denominations')->onDelete('restrict')->onUpdate('restrict');
     });
   }
 

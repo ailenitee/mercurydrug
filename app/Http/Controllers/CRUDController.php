@@ -15,6 +15,7 @@ use App\Cart;
 use App\Logs;
 use App\Transaction;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\URL;
 class CRUDController extends Controller
 {
   protected $url;
@@ -37,6 +38,8 @@ class CRUDController extends Controller
       $input['user_id'] = session()->getId();
     }
     $res = [];
+
+    //todo insert, match tbl_td and tbl_tc, get denomination amount,
     foreach ($request->themeID as $key => $value){
       $intval= (int)$value;
       $input['input'][$key]["theme_id"]              = $value;
@@ -47,32 +50,54 @@ class CRUDController extends Controller
       $input['input'][$key]['mobile']                = $request->mobile;
       $input['input'][$key]['option']                = $input['option'];
       $input['input'][$key]['user_type']             = $input['user_type'];
-      $input['themes'] = DB::table('denominations')
-      ->leftJoin('themes', 'themes.denomination_id', '=', 'denominations.id')
-      ->where('themes.id',$intval)
+    }
+    foreach ($request->denomID as $key3 => $value){
+      $input['input'][$key3]['denomination_id'] =  (int)$value;
+      $input['input'][$key3]['dm_tbl'] = DB::table('denominations')
+      ->where('id',(int)$value)
       ->get();
-      foreach ($input['themes'] as $key3 => $value){
-        $input['input'][$key]['denomination'] = (int)$value->denomination;
+      foreach ($input['input'][$key3]['dm_tbl'] as $key5 => $value){
+        $input['input'][$key3]['amount']  = $value->amount;
+      }
+      // dd($value);
+      $input['input'][$key3]['temp_den'] = DB::table('template_denominations')
+      ->where('brand_id',1)
+      ->where('denomination_id',(int)$value->id)
+      ->get();
+      foreach ($input['input'][$key3]['temp_den'] as $key6 => $value){
+        $input['input'][$key3]['template_denomination_id']  = $value->id;
       }
     }
+
+    foreach ($request->themeID as $key3 => $value){
+      $input['input'][$key3]['temp_cat'] = DB::table('template_categories')
+      ->where('brand_id',1)
+      ->where('category_id',(int)$value)
+      ->get();
+      foreach ($input['input'][$key3]['temp_cat'] as $key6 => $value){
+        $input['input'][$key3]['template_category_id']  = $value->id;
+      }
+    }
+    // dd($input);
     foreach ($request->quantityVal as $key2 => $value){
       $input['input'][$key2]['quantity'] =  (int)$value;
-      $input['input'][$key2]['total'] = $input['input'][$key2]['quantity'] * $input['input'][$key2]['denomination'];
     }
-    // dd($request);
+    // dd($input);
     foreach ($input['input'] as $key => $value){
       if($input['input'][$key]['quantity'] != 0){
         $res[] =[
-          'theme_id'            => (int)$input['input'][$key]['theme_id'],
-          'brand_id'            => 1,
-          'user_id'             => $input['user_id'],
-          'sender'              => $input['input'][$key]['sender'],
-          'name'                => $input['input'][$key]['name'],
-          'quantity'            => $input['input'][$key]['quantity'],
-          'address'             => $input['input'][$key]['address'],
-          'mobile'              => $input['input'][$key]['mobile'],
-          'total'               => $input['input'][$key]['total'],
-          'user_type'           => $input['input'][$key]['user_type']
+          'brand_id'                    => 1,
+          'user_id'                     => $input['user_id'],
+          'sender'                      => $input['input'][$key]['sender'],
+          'name'                        => $input['input'][$key]['name'],
+          'quantity'                    => $input['input'][$key]['quantity'],
+          'address'                     => $input['input'][$key]['address'],
+          'mobile'                      => $input['input'][$key]['mobile'],
+          'total'                       => $input['input'][$key]['quantity'] * $input['input'][$key]['amount'],
+          'user_type'                   => $input['input'][$key]['user_type'],
+          'fulfillment_type'            => $input['input'][$key]['option'],
+          'template_denomination_id'    => $input['input'][$key]['template_denomination_id'],
+          'template_category_id'        => $input['input'][$key]['template_category_id']
         ];
       }
     }
@@ -170,9 +195,10 @@ class CRUDController extends Controller
     $user = Auth::user();
     $input      = $request->except(['_token','confirm','button']);
     $data['cart'] = DB::table('carts')
-    ->join('themes', 'themes.id', '=', 'carts.theme_id')
-    ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
-    ->select('carts.*','denominations.denomination','themes.theme')
+    ->join('template_categories', 'carts.template_category_id', '=', 'template_categories.id')
+    ->join('categories', 'template_categories.category_id', '=', 'categories.id')
+    ->join('template_denominations', 'carts.template_denomination_id', '=', 'template_denominations.id')
+    ->join('denominations', 'template_denominations.denomination_id', '=', 'denominations.id')
     ->where('user_id',$user->id)
     ->where('transaction_id','pending')
     ->orWhereNull('transaction_id')
@@ -183,13 +209,13 @@ class CRUDController extends Controller
     $mytime = Carbon::now()->format('Y-m-d H:i:s');
     $ymd = str_replace('-', '',$mytime);
     $random = preg_replace('/[^A-Za-z0-9\-]/', '', $ymd);
-
     $input['user_id'] = $user->id;
     foreach ($data['cart'] as $key => $value){
       $items[] = [
-        "name"=> "Gift Card ".$value->denomination,
+        "name"=> "Gift Card ".$value->amount,
         "quantity"=> $value->quantity,
-        "amount"=> $value->denomination
+        "amount"=> $value->amount,
+        "id"=> $value->id
       ];
     }
     $cart = [
@@ -202,10 +228,7 @@ class CRUDController extends Controller
         "email"=> $input['email'],
         "mobile"=> $input['mobile'],
         "address1"=> $input['Address'],
-        "city"=> $input['city'],
-        // "region"=>"Metro Manila",
-        // "country"=>"PH",
-        // "zip"=> 1601,
+        "city"=> $input['city']
       ],
       "items"=>$items,
     ];
@@ -235,8 +258,18 @@ class CRUDController extends Controller
       echo "cURL Error #:" . $err;
     }else {
       if($res->success == true){
-        $input['reference_num'] = $res->reference;
-        Transaction::insert($input);
+        // $input['reference_num'] = $res->reference;
+        foreach ($data['cart'] as $key => $value){
+          $itemsTrans[] = [
+            "status"=> "pending",
+            "cart_id"=> $value->id,
+            "client_id"=> 1,
+            "reference_num"=>$res->reference
+          ];
+        }
+        // foreach ($itemsTrans as $key => $value){
+        Transaction::insert($itemsTrans);
+        // }
         Cart::where('user_id', $user->id)->WhereNull('transaction_id')->update(array('transaction_id' => 'pending'));
         return redirect('https://fxyccwxx7b.execute-api.us-east-1.amazonaws.com/dev'.$res->redirect_url);
       }else{
@@ -256,26 +289,28 @@ class CRUDController extends Controller
       $user = Auth::user();
       $tid =request()->tid;
       Transaction::where('reference_num', $tid)->update(array('status' => 'paid'));
-      Cart::where('user_id', $user->id)->where('transaction_id','pending')->update(array('transaction_id' => $tid));
-      // dd($tid);
+      Cart::where('user_id', $user->id)->where('transaction_id','pending')->update(array('transaction_id' => $tid)); 
       $data['cart'] = DB::table('carts')
-      ->join('themes', 'themes.id', '=', 'carts.theme_id')
-      ->join('denominations', 'themes.denomination_id', '=', 'denominations.id')
-      ->select('carts.*','denominations.denomination','themes.theme')
+      ->join('template_categories', 'carts.template_category_id', '=', 'template_categories.id')
+      ->join('categories', 'template_categories.category_id', '=', 'categories.id')
+      ->join('template_denominations', 'carts.template_denomination_id', '=', 'template_denominations.id')
+      ->join('denominations', 'template_denominations.denomination_id', '=', 'denominations.id')
+      ->join('brands', 'carts.brand_id', '=', 'brands.id')
       ->where('user_id',$user->id)
       ->where('transaction_id',$tid)
       ->get();
+      // dd($data['cart']);
       foreach ($data['cart'] as $key => $value){
         if(!$value->address){
           // get epin code from giftcard service
           $gservice = array(
-            "template" =>   "1c315d9e-633a-4a4d-9e76-aa2dd5f3b9fd",
-              "amount"=>    $value->denomination,
-              "userId"=>    $value->user_id,
-              "name"=>      $value->name,
-              "background"=>$value->theme,
-              "timestamp"=> $current_time,
-              "theme"=>     "".$value->theme_id.""
+            "template" =>   $value->epin_brand,
+            "amount"=>    $value->amount,
+            "userId"=>    $value->user_id,
+            "name"=>      $value->name,
+            "background"=> $value->url,
+            "timestamp"=> $current_time,
+            "theme"=>     "".$value->template_category_id.""
           );
           $curl = curl_init();
           curl_setopt_array($curl, array(
@@ -290,17 +325,13 @@ class CRUDController extends Controller
             CURLOPT_HTTPHEADER => array(
               "accept: */*",
               "accept-language: en-US,en;q=0.8",
-              "content-type: application/json",
-              "Authorization:  DSPL9aJwYM3XbTsDue8xsUPwbXq6rb3WcWGjfRZ7JzwBjgcZ"
+              "Authorization:  DSPL9aJwYM3XbTsDue8xsUPwbXq6rb3WcWGjfRZ7JzwBjgcZ",
             ),
           ));
           $response = curl_exec($curl);
           $res = json_decode($response);
           $err = curl_error($curl);
-          dd($response,json_encode($gservice),$res);
           curl_close($curl);
-          $logs['cart_id']=$data['cart']->id;
-
           //send text message
           $string = str_replace('-', '', $value->mobile);
           $mobile = preg_replace('/[^A-Za-z0-9\-]/', '', $string);
@@ -309,7 +340,7 @@ class CRUDController extends Controller
             "messages" => array(array(
               "source"=> "php",
               "from"=> "Mercury",
-              "body"=> "Hi ".$value->name.". You purchased a Mercury Gift Card worth P".$value->denomination.".<br><br>Here is your verification code ".$tid.".",
+              "body"=> "Hi ".$value->name.". You purchased a Mercury Gift Card worth P".$value->amount.".<br><br>Here is your verification code ".$tid.".",
               "to"=> $input['mobile']
             ))
           ];
@@ -344,7 +375,7 @@ class CRUDController extends Controller
       }
       return redirect('/')->with('success', 'Payment Successful!');
     } catch (\Exception $e) {
-      // dd($e);
+      dd($e);
       return redirect('/')->with('error', 'Payment Error!');
     }
   }

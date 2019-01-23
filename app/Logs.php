@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class Logs extends Model
 {
     protected $table = "logs";
-    protected $fillable = ["cart_id","id","epin","code"];
+    protected $fillable = ["cart_id","image","code","verified_date","status"];
 
     public function getFillable(){
         return $this->fillable;

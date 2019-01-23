@@ -90,16 +90,19 @@ class RegisterController extends Controller
     $user->password=Hash::make($request->get('password'));
     $user->role_id=2;
     $user->status=0;
+    $user->client_id=1;
     $date=date_create($request->get('date'));
     $format = date_format($date,"Y-m-d");
     $user->created_at = strtotime($format);
     try{
+
       $user->save();
       dispatch(new SendVerificationEmail($user));
       return redirect('/login')->with('success', 'Registered Succesfully! Please check your registered email for email verification');
     }
     catch(\Exception $e){
       if($e){
+        // dd($e);
         return back()->with('error', 'The email address you have entered is already registered.');
       }
     }
